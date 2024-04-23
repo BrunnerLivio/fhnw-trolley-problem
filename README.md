@@ -4,7 +4,7 @@
 
 ### Team members
 
-TODO: Write the names of the team members here
+- [Livio Brunner](mailto:livio.brunner@students.fhnw.ch)
 
 ### Description
 
