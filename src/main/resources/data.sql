@@ -1,0 +1,1 @@
+-- INSERT INTO trolley_problem (leftBlank, rightBlank) VALUES ('a rich man', '5 people');
