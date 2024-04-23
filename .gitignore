@@ -39,3 +39,4 @@ out/
 
 ### H2 database ###
 /data
+h2.jar

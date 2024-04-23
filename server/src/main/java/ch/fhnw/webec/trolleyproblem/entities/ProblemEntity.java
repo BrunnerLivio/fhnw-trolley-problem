@@ -1,16 +1,17 @@
-package ch.fhnw.webec.trolleyproblem.trolleyProblem;
+package ch.fhnw.webec.trolleyproblem.entities;
 
 import java.util.Date;
+import java.util.List;
 
-import org.springframework.data.annotation.CreatedDate;
+import org.hibernate.annotations.CreationTimestamp;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -22,28 +23,29 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "trolley_problem")
-public class TrolleyProblemEntity {
+@Table(name = "problem")
+public class ProblemEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String question;
 
-    @CreatedDate
-    @Column(name = "created_at", nullable = false, updatable = false)
+    @CreationTimestamp
+    @Column(name = "created_at", updatable = false)
     private Date createdAt;
 
-    private String leftOption;
     private int leftVotes;
-    @Enumerated(EnumType.ORDINAL)
-    private TrolleyProblemItem leftItem;
-
-    private String rightOption;
     private int rightVotes;
-    // Move to 1..N relationship
-    @Enumerated(EnumType.ORDINAL)
-    private TrolleyProblemItem rightItem;
+
+    @OneToMany(mappedBy = "problem")
+    private List<ProblemVictimEntity> victims;
+
+    @OneToMany(mappedBy = "problem")
+    private List<CommentEntity> comments;
+
+    @ManyToOne
+    private CategoryEntity category;
 
     // Add category
 }
