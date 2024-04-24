@@ -17,12 +17,13 @@ import ch.fhnw.webec.trolleyproblem.entities.TrackPosition;
 import ch.fhnw.webec.trolleyproblem.services.ProblemService;
 
 @Controller
+@RequestMapping("/api/problems")
 public class ProblemController {
     @Autowired
     ProblemService trolleyProblemService;
 
     @RequestMapping(path = "/", method = RequestMethod.GET)
-    public ResponseEntity<List<ProblemDto>> index(Model model) {
+    public ResponseEntity<List<ProblemDto>> list(Model model) {
         var trolleyProblems = trolleyProblemService
                 .findAll()
                 .stream()
@@ -30,6 +31,13 @@ public class ProblemController {
                 .toList();
 
         return ResponseEntity.ok().body(trolleyProblems);
+    }
+
+    @RequestMapping(path = "/random", method = RequestMethod.GET)
+    public ResponseEntity<ProblemDto> random(Model model) {
+        var trolleyProblem = toDto(trolleyProblemService.findRandom());
+
+        return ResponseEntity.ok().body(trolleyProblem);
     }
 
     private ProblemDto toDto(ProblemEntity entity) {

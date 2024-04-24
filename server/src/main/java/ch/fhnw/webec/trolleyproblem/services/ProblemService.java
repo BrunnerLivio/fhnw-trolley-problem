@@ -21,4 +21,8 @@ public class ProblemService {
     public List<ProblemEntity> findAll() {
         return repository.findAll();
     }
+
+    public ProblemEntity findRandom() {
+        return repository.findRandom();
+    }
 }
