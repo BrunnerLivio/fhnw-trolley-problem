@@ -11,6 +11,9 @@ dependencies:
   ky:
     specifier: ^1.2.4
     version: 1.2.4
+  svelte-spa-router:
+    specifier: ^4.0.1
+    version: 4.0.1
 
 devDependencies:
   '@sveltejs/vite-plugin-svelte':
@@ -1282,6 +1285,11 @@ packages:
       picomatch: 2.3.1
     dev: true
 
+  /regexparam@2.0.2:
+    resolution: {integrity: sha512-A1PeDEYMrkLrfyOwv2jwihXbo9qxdGD3atBYQA9JJgreAx8/7rC6IUkWOw2NQlOxLp2wL0ifQbh1HuidDfYA6w==}
+    engines: {node: '>=8'}
+    dev: false
+
   /resolve-from@4.0.0:
     resolution: {integrity: sha512-pb/MYmXstAkysRFx8piNI1tGFNQIFA3vkE3Gq4EuA1dF6gHp/+vgZqsCGJapvy8N3Q+4o7FwvquPJcnZ7RYy4g==}
     engines: {node: '>=4'}
@@ -1529,6 +1537,12 @@ packages:
       svelte: 4.2.15
       typescript: 5.4.5
     dev: true
+
+  /svelte-spa-router@4.0.1:
+    resolution: {integrity: sha512-2JkmUQ2f9jRluijL58LtdQBIpynSbem2eBGp4zXdi7aDY1znbR6yjw0KsonD0aq2QLwf4Yx4tBJQjxIjgjXHKg==}
+    dependencies:
+      regexparam: 2.0.2
+    dev: false
 
   /svelte@4.2.15:
     resolution: {integrity: sha512-j9KJSccHgLeRERPlhMKrCXpk2TqL2m5Z+k+OBTQhZOhIdCCd3WfqV+ylPWeipEwq17P/ekiSFWwrVQv93i3bsg==}

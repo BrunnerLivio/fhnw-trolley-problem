@@ -23,6 +23,7 @@
   },
   "dependencies": {
     "class-variance-authority": "^0.7.0",
-    "ky": "^1.2.4"
+    "ky": "^1.2.4",
+    "svelte-spa-router": "^4.0.1"
   }
 }
