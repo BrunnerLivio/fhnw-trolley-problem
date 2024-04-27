@@ -1,6 +1,10 @@
 <script lang="ts">
     import Navigation from "./lib/Navigation.svelte";
-    import { problemService } from "./services/ProblemService";
+    import {
+        Position,
+        TrackPosition,
+        problemService,
+    } from "./services/ProblemService";
     import Track from "./assets/track.svg";
     import Trolley from "./assets/trolley.svg";
     import You from "./assets/you.svg";
@@ -52,20 +56,24 @@
                     />
                 </div>
             </div>
+            <div class="flex justify-center gap-4 mt-8">
+                <button
+                    on:click={() =>
+                        problemService.vote(problem.id, Position.LEFT)}
+                    class="p-4 text-xl border-2 rounded-lg border-primary hover:bg-primary hover:text-background"
+                >
+                    Pull the lever
+                </button>
+                <button
+                    on:click={() =>
+                        problemService.vote(problem.id, Position.RIGHT)}
+                    class="p-4 text-xl border-2 rounded-lg border-primary hover:bg-primary hover:text-background"
+                >
+                    Do nothing
+                </button>
+            </div>
         {:catch error}
             <p>{error.message}</p>
         {/await}
-        <div class="flex justify-center gap-4 mt-8">
-            <button
-                class="p-4 text-xl border-2 rounded-lg border-primary hover:bg-primary hover:text-background"
-            >
-                Pull the lever
-            </button>
-            <button
-                class="p-4 text-xl border-2 rounded-lg border-primary hover:bg-primary hover:text-background"
-            >
-                Do nothing
-            </button>
-        </div>
     </div>
 </main>

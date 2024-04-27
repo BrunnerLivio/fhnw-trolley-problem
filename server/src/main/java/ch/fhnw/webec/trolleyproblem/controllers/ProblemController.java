@@ -6,12 +6,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import ch.fhnw.webec.trolleyproblem.dtos.CategoryDto;
+import ch.fhnw.webec.trolleyproblem.dtos.Position;
 import ch.fhnw.webec.trolleyproblem.dtos.ProblemDto;
 import ch.fhnw.webec.trolleyproblem.dtos.VictimDto;
+import ch.fhnw.webec.trolleyproblem.dtos.VoteDto;
 import ch.fhnw.webec.trolleyproblem.entities.ProblemEntity;
 import ch.fhnw.webec.trolleyproblem.entities.TrackPosition;
 import ch.fhnw.webec.trolleyproblem.services.ProblemService;
@@ -22,7 +29,7 @@ public class ProblemController {
     @Autowired
     ProblemService trolleyProblemService;
 
-    @RequestMapping(path = "/", method = RequestMethod.GET)
+    @GetMapping("/")
     public ResponseEntity<List<ProblemDto>> list(Model model) {
         var trolleyProblems = trolleyProblemService
                 .findAll()
@@ -33,11 +40,32 @@ public class ProblemController {
         return ResponseEntity.ok().body(trolleyProblems);
     }
 
-    @RequestMapping(path = "/random", method = RequestMethod.GET)
+    @GetMapping("/random")
     public ResponseEntity<ProblemDto> random(Model model) {
         var trolleyProblem = toDto(trolleyProblemService.findRandom());
 
         return ResponseEntity.ok().body(trolleyProblem);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<ProblemDto> get(@PathVariable(name = "id") Long id) {
+        var trolleyProblem = trolleyProblemService.findById(id)
+                .map(this::toDto)
+                .orElse(null);
+
+        if (trolleyProblem == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        return ResponseEntity.ok().body(trolleyProblem);
+    }
+
+    @PostMapping("/{id}/vote/{position}")
+    public ResponseEntity<ProblemDto> vote(
+            @PathVariable(name = "id") Long id,
+            @PathVariable(name ="position") TrackPosition position) {
+        var problem = trolleyProblemService.vote(id, position);
+        return ResponseEntity.ok().body(toDto(problem));
     }
 
     private ProblemDto toDto(ProblemEntity entity) {
