@@ -1,15 +1,28 @@
 <script lang="ts">
-    import Navigation from "./lib/Navigation.svelte";
-    import {
-        Position,
-        TrackPosition,
-        problemService,
-    } from "./services/ProblemService";
     import Track from "./assets/track.svg";
     import Trolley from "./assets/trolley.svg";
     import You from "./assets/you.svg";
 
+    import Navigation from "./lib/Navigation.svelte";
+    import { problemService, Position } from "./services/ProblemService";
+    import VoteSummary from "./lib/VoteSummary.svelte";
+    import type { ComponentProps } from "svelte";
+    import Button from "./lib/Button.svelte";
+
     const problemPromise = problemService.random();
+    let votes: ComponentProps<VoteSummary>["votes"] | null = null;
+    let chosenPosition: Position | null = null;
+
+    const handleVote = async (problemId: number, position: Position) => {
+        const problem = await problemService.vote(problemId, position);
+        const totalVotes = problem.leftVotes + problem.rightVotes;
+        chosenPosition = position;
+        votes = {
+            [Position.LEFT]: (problem.leftVotes / totalVotes) * 100,
+            [Position.RIGHT]: (problem.rightVotes / totalVotes) * 100,
+            total: totalVotes,
+        };
+    };
 </script>
 
 <main class="flex flex-col items-center gap-4 p-8">
@@ -19,7 +32,7 @@
         {#await problemPromise}
             <p>Loading...</p>
         {:then problem}
-            <p>{problem.question}</p>
+            <p class="text-2xl">{problem.question}</p>
             <div class="w-full">
                 <div class="relative mt-32">
                     <img src={Track} alt="Track" />
@@ -56,22 +69,25 @@
                     />
                 </div>
             </div>
-            <div class="flex justify-center gap-4 mt-8">
-                <button
-                    on:click={() =>
-                        problemService.vote(problem.id, Position.LEFT)}
-                    class="p-4 text-xl border-2 rounded-lg border-primary hover:bg-primary hover:text-background"
-                >
-                    Pull the lever
-                </button>
-                <button
-                    on:click={() =>
-                        problemService.vote(problem.id, Position.RIGHT)}
-                    class="p-4 text-xl border-2 rounded-lg border-primary hover:bg-primary hover:text-background"
-                >
-                    Do nothing
-                </button>
-            </div>
+            {#if !chosenPosition}
+                <div class="flex justify-center gap-4 mt-8">
+                    <Button
+                        on:click={() => handleVote(problem.id, Position.LEFT)}
+                        intent="secondary"
+                    >
+                        Pull the lever
+                    </Button>
+                    <Button
+                        on:click={() => handleVote(problem.id, Position.RIGHT)}
+                        intent="secondary"
+                    >
+                        Do nothing
+                    </Button>
+                </div>
+            {/if}
+            {#if votes && chosenPosition}
+                <VoteSummary {votes} {chosenPosition} />
+            {/if}
         {:catch error}
             <p>{error.message}</p>
         {/await}

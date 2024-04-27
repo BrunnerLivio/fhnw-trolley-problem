@@ -22,6 +22,7 @@
     "vite": "^5.2.0"
   },
   "dependencies": {
+    "class-variance-authority": "^0.7.0",
     "ky": "^1.2.4"
   }
 }

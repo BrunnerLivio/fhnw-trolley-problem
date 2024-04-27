@@ -30,7 +30,7 @@ export const Position = {
     LEFT: "LEFT",
     RIGHT: "RIGHT",
 } as const;
-export type Positon = (typeof Position)[keyof typeof Position];
+export type Position = (typeof Position)[keyof typeof Position];
 
 const api = ky.create({
     prefixUrl: import.meta.env.VITE_API_URL,
@@ -46,7 +46,7 @@ const random = async () => {
     return await response.json<Problem>();
 };
 
-const vote = async (problemId: number, position: Positon) => {
+const vote = async (problemId: number, position: Position) => {
     const response = await api.post(
         `api/problems/${problemId}/vote/${position}`
     );

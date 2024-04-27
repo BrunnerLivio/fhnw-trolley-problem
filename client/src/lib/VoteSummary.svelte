@@ -1,0 +1,30 @@
+<script lang="ts">
+    import { Position } from "../services/ProblemService";
+    import Button from "./Button.svelte";
+    import PieChart from "./PieChart.svelte";
+
+    type Votes = {
+        [Position.LEFT]: number;
+        [Position.RIGHT]: number;
+        total: number;
+    };
+
+    export let votes: Votes;
+    export let chosenPosition: Position;
+
+    $: otherPosition =
+        chosenPosition === Position.LEFT ? Position.RIGHT : Position.LEFT;
+    $: chosenVotesPercentage = votes[chosenPosition].toFixed(2);
+    $: otherVotesPercentage = votes[otherPosition].toFixed(2);
+</script>
+
+<div
+    class="fixed bottom-0 left-0 flex items-center justify-center w-full gap-4 p-8 text-2xl border-t-2 border-t-primary"
+>
+    <PieChart percentage={votes[chosenPosition]} />
+    <span>
+        {chosenVotesPercentage}% of people agree with you, {otherVotesPercentage}%
+        disagree ({votes.total} votes)
+    </span>
+    <Button>Next</Button>
+</div>
