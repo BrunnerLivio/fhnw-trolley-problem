@@ -1,6 +1,6 @@
 import ky from "ky";
 
-type Problem = {
+export type Problem = {
     id: number;
     question: string;
     // createdAt: string;
@@ -14,7 +14,7 @@ type Problem = {
     rightVictims: Victim[];
 };
 
-type Victim = {
+export type Victim = {
     id: number;
     name: string;
     imageUrl: string;
