@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { Position } from "../services/ProblemService";
+    import { Position } from "../models/Position";
     import Button from "./Button.svelte";
     import PieChart from "./PieChart.svelte";
 

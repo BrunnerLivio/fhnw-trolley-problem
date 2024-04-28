@@ -1,40 +1,6 @@
-import ky from "ky";
-
-export type Problem = {
-    id: number;
-    question: string;
-    // createdAt: string;
-    leftVotes: number;
-    rightVotes: number;
-    category: {
-        id: number;
-        name: string;
-    };
-    leftVictims: Victim[];
-    rightVictims: Victim[];
-};
-
-export type Victim = {
-    id: number;
-    name: string;
-    imageUrl: string;
-};
-
-export const TrackPosition = {
-    LEFT: 0,
-    RIGHT: 1,
-} as const;
-type TrackPosition = (typeof TrackPosition)[keyof typeof TrackPosition];
-
-export const Position = {
-    LEFT: "LEFT",
-    RIGHT: "RIGHT",
-} as const;
-export type Position = (typeof Position)[keyof typeof Position];
-
-const api = ky.create({
-    prefixUrl: import.meta.env.VITE_API_URL,
-});
+import type { Position } from "../models/Position";
+import type { Problem } from "../models/Problem";
+import { api } from "./api";
 
 const list = async () => {
     const response = await api.get("api/problems");

@@ -1,7 +1,6 @@
 <script lang="ts">
-    import You from "../assets/you.svg";
-    import YouPull from "../assets/you-pull.svg";
     import Button from "../lib/Button.svelte";
+    import YouPullAnimation from "../lib/YouPullAnimation.svelte";
 
     $: pull = false;
 
@@ -12,7 +11,7 @@
 
 <div class="flex flex-col items-center flex-1 h-full gap-16 mt-16">
     <p class="text-3xl">404 - Not Found</p>
-    <img src={pull ? YouPull : You} alt="You" class="w-1/2" />
+    <YouPullAnimation />
     <a href="/">
         <Button>Go Home</Button>
     </a>

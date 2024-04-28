@@ -6,19 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 import ch.fhnw.webec.trolleyproblem.dtos.CategoryDto;
-import ch.fhnw.webec.trolleyproblem.dtos.Position;
 import ch.fhnw.webec.trolleyproblem.dtos.ProblemDto;
 import ch.fhnw.webec.trolleyproblem.dtos.VictimDto;
-import ch.fhnw.webec.trolleyproblem.dtos.VoteDto;
 import ch.fhnw.webec.trolleyproblem.entities.ProblemEntity;
 import ch.fhnw.webec.trolleyproblem.entities.TrackPosition;
 import ch.fhnw.webec.trolleyproblem.services.ProblemService;
@@ -26,8 +21,12 @@ import ch.fhnw.webec.trolleyproblem.services.ProblemService;
 @Controller
 @RequestMapping("/api/problems")
 public class ProblemController {
+    private final ProblemService trolleyProblemService;
+
     @Autowired
-    ProblemService trolleyProblemService;
+    public ProblemController(ProblemService trolleyProblemService) {
+        this.trolleyProblemService = trolleyProblemService;
+    }
 
     @GetMapping("/")
     public ResponseEntity<List<ProblemDto>> list(Model model) {

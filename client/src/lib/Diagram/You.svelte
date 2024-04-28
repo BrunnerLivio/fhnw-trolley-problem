@@ -1,8 +1,8 @@
 <script lang="ts">
-    import { Position } from "../../services/ProblemService";
-
     import You from "../../assets/you.svg";
     import YouPull from "../../assets/you-pull.svg";
+
+    import { Position } from "../../models/Position";
 
     export let chosenOption: Position | null = null;
 </script>

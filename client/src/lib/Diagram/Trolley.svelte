@@ -1,5 +1,5 @@
 <script lang="ts">
-    import type { Position } from "../../services/ProblemService";
+    import type { Position } from "../../models/Position";
     import Trolley from "../../assets/trolley.svg";
 
     export let chosenOption: Position | null = null;

@@ -1,8 +1,8 @@
 <script lang="ts">
     import Track from "../../assets/track.svg";
     import Splat from "../../assets/splat.svg";
-
-    import { Position, type Victim } from "../../services/ProblemService";
+    import { Position } from "../../models/Position";
+    import type { Victim } from "../../models/Victim";
 
     import You from "./You.svelte";
     import Trolley from "./Trolley.svelte";

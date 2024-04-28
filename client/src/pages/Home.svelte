@@ -1,10 +1,12 @@
 <script lang="ts">
     import type { ComponentProps } from "svelte";
-    import { problemService, Position } from "../services/ProblemService";
+    import { problemService } from "../services/ProblemService";
+    import { Position } from "../models/Position";
 
     import VoteSummary from "../lib/VoteSummary.svelte";
     import Button from "../lib/Button.svelte";
     import Diagram from "../lib/Diagram/Diagram.svelte";
+    import Loading from "../lib/Loading.svelte";
 
     const problemPromise = problemService.random();
     let votes: ComponentProps<VoteSummary>["votes"] | null = null;
@@ -24,9 +26,10 @@
 
 <div class="max-w-screen-lg">
     {#await problemPromise}
-        <p>Loading...</p>
+        <Loading />
     {:then problem}
         <p class="text-2xl">{problem.question}</p>
+
         <Diagram
             leftVictims={problem.leftVictims}
             rightVictims={problem.rightVictims}
