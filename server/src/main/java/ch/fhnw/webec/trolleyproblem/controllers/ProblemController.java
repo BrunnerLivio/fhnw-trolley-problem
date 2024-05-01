@@ -81,6 +81,6 @@ public class ProblemController {
                 .toList();
 
         return new ProblemDto(entity.getId(), entity.getQuestion(), entity.getCreatedAt(), entity.getLeftVotes(),
-                entity.getRightVotes(), category, leftVictims, rightVictims);
+                entity.getRightVotes(), entity.getLeftLabel(), entity.getRightLabel(), category, leftVictims, rightVictims);
     }
 }

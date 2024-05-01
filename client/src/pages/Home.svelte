@@ -33,6 +33,8 @@
         <Diagram
             leftVictims={problem.leftVictims}
             rightVictims={problem.rightVictims}
+            leftLabel={problem.leftLabel}
+            rightLabel={problem.rightLabel}
             {chosenOption}
         />
 

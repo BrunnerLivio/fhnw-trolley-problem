@@ -38,6 +38,9 @@ public class ProblemEntity {
     private int leftVotes;
     private int rightVotes;
 
+    private String leftLabel;
+    private String rightLabel;
+
     @OneToMany(mappedBy = "problem")
     private List<ProblemVictimEntity> victims;
 
@@ -46,6 +49,4 @@ public class ProblemEntity {
 
     @ManyToOne
     private CategoryEntity category;
-
-    // Add category
 }

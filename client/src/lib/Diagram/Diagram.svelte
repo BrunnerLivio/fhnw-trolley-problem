@@ -6,9 +6,13 @@
 
     import You from "./You.svelte";
     import Trolley from "./Trolley.svelte";
+    import VictimCmp from "./Victim.svelte";
+    import Label from "./Label.svelte";
 
     export let leftVictims: Victim[] = [];
     export let rightVictims: Victim[] = [];
+    export let leftLabel: string | null;
+    export let rightLabel: string | null;
     export let chosenOption: Position | null = null;
 
     let displaySplat: boolean;
@@ -25,50 +29,52 @@
     }
 </script>
 
-<div class="w-full">
-    <div class="relative pt-32 overflow-hidden">
+<div class="w-full overflow-hidden" role="presentation">
+    <div class="relative mt-32">
         <img src={Track} alt="Track" />
         <Trolley {chosenOption} />
 
-        {#if !leftDead}
-            {#each leftVictims as victim, index}
+        {#if !!leftLabel}
+            <div
+                class="absolute right-[25%] top-[0%] z-10 max-w-56 -translate-y-1/2"
+            >
+                <Label label={leftLabel} />
+            </div>
+        {/if}
+
+        <div class="absolute max-w-[33%] flex top-[0%] left-3/4">
+            {#if !leftDead}
+                {#each leftVictims as victim, index}
+                    <VictimCmp yOffsetMultiplier={5} {victim} {index} />
+                {/each}
+            {/if}
+            {#if leftDead && leftVictims.length > 0}
+                <img src={Splat} alt="Splat" class="max-w-[60%] w-full top-0" />
+            {/if}
+        </div>
+
+        {#if !!rightLabel}
+            <div
+                class="absolute right-[43%] top-[42%] z-10 max-w-56 -translate-y-1/2"
+            >
+                <Label label={rightLabel} />
+            </div>
+        {/if}
+
+        <div class="absolute max-w-[32%] flex top-[38%] left-[55%]">
+            {#if !rightDead}
+                {#each rightVictims as victim, index}
+                    <VictimCmp yOffsetMultiplier={10} {victim} {index} />
+                {/each}
+            {/if}
+            {#if rightDead && rightVictims.length > 0}
                 <img
-                    class="absolute max-w-[10%] top-32"
-                    style="left: {75 +
-                        index * 3}%; transform: translateY({index * 7}%)"
-                    src={victim.imageUrl}
-                    alt={victim.name}
+                    src={Splat}
+                    alt="Splat"
+                    class="max-w-[60%] translate-x-1/4 w-full top-0"
                 />
-            {/each}
-        {/if}
-
-        {#if leftDead && leftVictims.length > 0}
-            <img
-                src={Splat}
-                alt="Splat"
-                class="absolute max-w-[20%] top-[28%] left-3/4 transform translate-x-[-1rem] -translate-y-[30%]"
-            />
-        {/if}
-
-        {#if !rightDead}
-            {#each rightVictims as victim, index}
-                <img
-                    class="absolute max-w-[10%] top-[62%]"
-                    style="left: {55 + index * 3}%; transform: translateY({-25 +
-                        index * 7}%)"
-                    src={victim.imageUrl}
-                    alt={victim.name}
-                />
-            {/each}
-        {/if}
-
-        {#if rightDead && rightVictims.length > 0}
-            <img
-                src={Splat}
-                alt="Splat"
-                class="absolute max-w-[20%] top-[62%] left-3/4 transform -translate-x-full -translate-y-[30%]"
-            />
-        {/if}
+            {/if}
+        </div>
 
         <You {chosenOption} />
     </div>

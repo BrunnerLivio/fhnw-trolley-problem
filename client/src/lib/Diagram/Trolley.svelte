@@ -11,7 +11,7 @@
 </script>
 
 <img
-    class={`max-w-[21%] z-10 top-32 left-0 absolute -translate-y-1/2 ${trolleyAnimation}`}
+    class={`max-w-[21%] z-30 top-[0%] left-0 absolute -translate-y-1/2 ${trolleyAnimation}`}
     src={Trolley}
     alt="Trolley"
 />

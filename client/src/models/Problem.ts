@@ -10,4 +10,6 @@ export type Problem = {
     category: Category;
     leftVictims: Victim[];
     rightVictims: Victim[];
+    leftLabel: string | null;
+    rightLabel: string | null;
 };

@@ -3,7 +3,7 @@
     import Navigation from "./lib/Navigation.svelte";
 </script>
 
-<main class="flex flex-col items-center h-full gap-4 p-8 min-h-svh">
+<main class="flex flex-col items-center h-full gap-4 min-h-svh">
     <Navigation />
 
     <Routes />

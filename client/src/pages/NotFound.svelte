@@ -1,6 +1,6 @@
 <script lang="ts">
     import Button from "../lib/Button.svelte";
-    import YouPullAnimation from "../lib/YouPullAnimation.svelte";
+    import EndlessYouPullAnimation from "../lib/EndlessYouPullAnimation.svelte";
 
     $: pull = false;
 
@@ -11,7 +11,7 @@
 
 <div class="flex flex-col items-center flex-1 h-full gap-16 mt-16">
     <p class="text-3xl">404 - Not Found</p>
-    <YouPullAnimation />
+    <EndlessYouPullAnimation />
     <a href="/">
         <Button>Go Home</Button>
     </a>

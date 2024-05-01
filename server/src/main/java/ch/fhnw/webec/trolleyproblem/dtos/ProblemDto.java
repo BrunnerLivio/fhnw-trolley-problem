@@ -16,6 +16,8 @@ public class ProblemDto {
     private Date createdAt;
     private int leftVotes;
     private int rightVotes;
+    private String leftLabel;
+    private String rightLabel;
     private CategoryDto category;
 
     private List<VictimDto> leftVictims;
