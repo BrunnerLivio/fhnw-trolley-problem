@@ -5,9 +5,9 @@ INSERT INTO problem (question, right_votes, left_votes, left_label, right_label,
 INSERT INTO problem (question, right_votes, left_votes, left_label, right_label, category_id) VALUES ('Oh no! A trolley is heading towards 5 people. You can pull the lever to divert it to the other track, killing 4 people instead. What do you do?', 0, 0, NULL, NULL, 1);
 INSERT INTO problem (question, right_votes, left_votes, left_label, right_label, category_id) VALUES ('Oh no! A trolley is heading towards 0 people. You can pull the lever to divert it to the other track, killing 0 people instead. What do you do?', 0, 0, NULL, NULL, 1);
 
-INSERT INTO victim (name, image_url) VALUES ('Person', 'https://trolley-problem-media.s3.eu-central-1.amazonaws.com/one-guy.svg');
-INSERT INTO victim (name, image_url) VALUES ('Money', 'https://trolley-problem-media.s3.eu-central-1.amazonaws.com/money.svg');
-INSERT INTO victim (name, image_url) VALUES ('Mona Lisa', 'https://trolley-problem-media.s3.eu-central-1.amazonaws.com/mona-lisa.svg');
+INSERT INTO victim (name, image_url) VALUES ('Person', 'https://d3rjk7x0pvg6e3.cloudfront.net/one-guy.svg');
+INSERT INTO victim (name, image_url) VALUES ('Money', 'https://d3rjk7x0pvg6e3.cloudfront.net/money.svg');
+INSERT INTO victim (name, image_url) VALUES ('Mona Lisa', 'https://d3rjk7x0pvg6e3.cloudfront.net/mona-lisa.svg');
 
 INSERT INTO problem_victim (problem_id, victim_id, position) VALUES (1, 1, 0);
 INSERT INTO problem_victim (problem_id, victim_id, position) VALUES (1, 1, 1);
