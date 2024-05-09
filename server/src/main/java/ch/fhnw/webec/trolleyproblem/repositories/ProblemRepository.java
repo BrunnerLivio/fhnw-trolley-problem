@@ -1,5 +1,7 @@
 package ch.fhnw.webec.trolleyproblem.repositories;
 
+import java.util.Optional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -10,8 +12,8 @@ import jakarta.transaction.Transactional;
 
 public interface ProblemRepository extends JpaRepository<ProblemEntity, Long> {
 
-    @Query("SELECT p FROM ProblemEntity p ORDER BY RAND() DESC LIMIT 1")
-    ProblemEntity findRandom();
+    @Query("SELECT p FROM ProblemEntity p WHERE p.category.name = :categoryName ORDER BY RAND() LIMIT 1")
+    Optional<ProblemEntity> findRandom(@Param(value = "categoryName") String categoryName);
 
     @Modifying(flushAutomatically = true, clearAutomatically = true)
     @Transactional

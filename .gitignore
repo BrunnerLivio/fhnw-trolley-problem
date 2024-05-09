@@ -40,3 +40,6 @@ out/
 ### H2 database ###
 /data
 h2.jar
+
+
+server/src/main/resources/static

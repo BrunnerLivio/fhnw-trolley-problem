@@ -1,5 +1,9 @@
 INSERT INTO category (name) VALUES ('Funny');
 INSERT INTO category (name) VALUES ('Thoughtful');
+INSERT INTO category (name) VALUES ('Ethical');
+INSERT INTO category (name) VALUES ('Unethical');
+INSERT INTO category (name) VALUES ('Political');
+INSERT INTO category (name) VALUES ('Economic');
 
 INSERT INTO problem (question, right_votes, left_votes, left_label, right_label, category_id) VALUES ('Oh no! A trolley is heading towards 5 people. You can pull the lever to divert it to the other track, killing yourself instead. What do you do?', 0, 0, NULL, 'You', 1);
 INSERT INTO problem (question, right_votes, left_votes, left_label, right_label, category_id) VALUES ('Oh no! A trolley is heading towards 5 people. You can pull the lever to divert it to the other track, killing 4 people instead. What do you do?', 0, 0, NULL, NULL, 1);

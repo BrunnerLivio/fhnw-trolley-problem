@@ -29,7 +29,7 @@ public class ProblemController {
     }
 
     @GetMapping("/")
-    public ResponseEntity<List<ProblemDto>> list(Model model) {
+    public ResponseEntity<List<ProblemDto>> list() {
         var trolleyProblems = trolleyProblemService
                 .findAll()
                 .stream()
@@ -39,12 +39,6 @@ public class ProblemController {
         return ResponseEntity.ok().body(trolleyProblems);
     }
 
-    @GetMapping("/random")
-    public ResponseEntity<ProblemDto> random(Model model) {
-        var trolleyProblem = toDto(trolleyProblemService.findRandom());
-
-        return ResponseEntity.ok().body(trolleyProblem);
-    }
 
     @GetMapping("/{id}")
     public ResponseEntity<ProblemDto> get(@PathVariable(name = "id") Long id) {

@@ -25,8 +25,8 @@ public class ProblemService {
         return repository.findAll();
     }
 
-    public ProblemEntity findRandom() {
-        return repository.findRandom();
+    public Optional<ProblemEntity> findRandom(String categoryName) {
+        return repository.findRandom(categoryName);
     }
 
     public Optional<ProblemEntity> findById(Long id) {

@@ -1,63 +1,54 @@
 <script lang="ts">
-    import type { ComponentProps } from "svelte";
-    import { problemService } from "../services/ProblemService";
-    import { Position } from "../models/Position";
-
-    import VoteSummary from "../lib/VoteSummary.svelte";
-    import Button from "../lib/Button.svelte";
-    import Diagram from "../lib/Diagram/Diagram.svelte";
+    import { link } from "svelte-spa-router";
     import Loading from "../lib/Loading.svelte";
+    import { categoryService } from "../services/CategoryService";
+    import Button from "../lib/Button.svelte";
 
-    const problemPromise = problemService.random();
-    let votes: ComponentProps<VoteSummary>["votes"] | null = null;
-    let chosenOption: Position | null = null;
-
-    const handleVote = async (problemId: number, position: Position) => {
-        const problem = await problemService.vote(problemId, position);
-        const totalVotes = problem.leftVotes + problem.rightVotes;
-        chosenOption = position;
-        votes = {
-            [Position.LEFT]: (problem.leftVotes / totalVotes) * 100,
-            [Position.RIGHT]: (problem.rightVotes / totalVotes) * 100,
-            total: totalVotes,
-        };
-    };
+    const categoryPromise = categoryService.list();
 </script>
 
-<div class="max-w-screen-lg">
-    {#await problemPromise}
+<div class="w-full max-w-screen-lg">
+    {#await categoryPromise}
         <Loading />
-    {:then problem}
-        <p class="text-2xl">{problem.question}</p>
+    {:then categories}
+        <div class="flex flex-col items-center w-full gap-4">
+            <p class="text-2xl text-center">Browser trolley problems</p>
 
-        <Diagram
-            leftVictims={problem.leftVictims}
-            rightVictims={problem.rightVictims}
-            leftLabel={problem.leftLabel}
-            rightLabel={problem.rightLabel}
-            {chosenOption}
-        />
+            <ul class="grid w-full grid-cols-3 gap-4 mt-8">
+                {#each categories as category}
+                    <li class="flex justify-center w-full">
+                        <a href={`/category/${category.name}`} use:link>
+                            <Button>
+                                {category.name}
+                            </Button>
+                        </a>
+                    </li>
+                {/each}
+            </ul>
 
-        {#if !chosenOption}
-            <div class="flex justify-center gap-4 mt-8">
-                <Button
-                    on:click={() => handleVote(problem.id, Position.LEFT)}
-                    intent="secondary"
-                >
-                    Pull the lever
-                </Button>
-                <Button
-                    on:click={() => handleVote(problem.id, Position.RIGHT)}
-                    intent="secondary"
-                >
-                    Do nothing
-                </Button>
+            <div class="relative w-full mt-8 -top-8">
+                <!-- Divider-->
+                <div class="flex justify-center w-full">
+                    <div
+                        class="flex justify-center w-full border-b-2 max-w-96 border-primary"
+                    >
+                        <p
+                            class="px-4 text-2xl text-center translate-y-1/2 bg-background"
+                        >
+                            or create your own
+                        </p>
+                    </div>
+                </div>
             </div>
-        {/if}
-        {#if votes && chosenOption}
-            <VoteSummary {votes} {chosenOption} />
-        {/if}
-    {:catch error}
-        <p>{error.message}</p>
+
+            <a href="/create" use:link>
+                <Button class="w-full mt-4">Create new</Button>
+            </a>
+        </div>
+    {:catch}
+        <p class="text-2xl">Failed to load categories</p>
     {/await}
 </div>
+
+<style>
+</style>

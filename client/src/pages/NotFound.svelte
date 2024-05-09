@@ -1,12 +1,6 @@
 <script lang="ts">
     import Button from "../lib/Button.svelte";
     import EndlessYouPullAnimation from "../lib/EndlessYouPullAnimation.svelte";
-
-    $: pull = false;
-
-    setInterval(() => {
-        pull = !pull;
-    }, 200);
 </script>
 
 <div class="flex flex-col items-center flex-1 h-full gap-16 mt-16">
