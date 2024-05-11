@@ -12,4 +12,5 @@ export type Problem = {
     rightVictims: Victim[];
     leftLabel: string | null;
     rightLabel: string | null;
+    nextProblemId: number | null;
 };

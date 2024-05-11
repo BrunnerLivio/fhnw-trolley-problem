@@ -19,8 +19,14 @@ const vote = async (problemId: number, position: Position) => {
     return await response.json<Problem>();
 };
 
+const detail = async (problemId: number) => {
+    const response = await api.get(`api/problems/${problemId}`);
+    return await response.json<Problem>();
+}
+
 export const problemService = {
     list,
     random,
     vote,
+    detail,
 };

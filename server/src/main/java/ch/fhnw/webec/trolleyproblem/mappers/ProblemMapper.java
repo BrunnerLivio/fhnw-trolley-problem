@@ -2,6 +2,7 @@ package ch.fhnw.webec.trolleyproblem.mappers;
 
 import java.util.List;
 
+import ch.fhnw.webec.trolleyproblem.dtos.RandomProblemDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;

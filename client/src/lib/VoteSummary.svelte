@@ -26,5 +26,5 @@
         {chosenVotesPercentage}% of people agree with you, {otherVotesPercentage}%
         disagree ({votes.total} votes)
     </span>
-    <Button>Next</Button>
+    <slot />
 </div>

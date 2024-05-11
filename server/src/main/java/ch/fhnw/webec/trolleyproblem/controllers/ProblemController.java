@@ -1,7 +1,10 @@
 package ch.fhnw.webec.trolleyproblem.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import ch.fhnw.webec.trolleyproblem.components.ViewedProblems;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -18,10 +21,12 @@ import ch.fhnw.webec.trolleyproblem.services.ProblemService;
 @RequestMapping("/api/problems")
 public class ProblemController {
     private final ProblemService trolleyProblemService;
+    private final ViewedProblems viewedProblems;
 
     @Autowired
-    public ProblemController(ProblemService trolleyProblemService) {
+    public ProblemController(ProblemService trolleyProblemService, ViewedProblems viewedProblems) {
         this.trolleyProblemService = trolleyProblemService;
+        this.viewedProblems = viewedProblems;
     }
 
     @GetMapping("/")
@@ -48,6 +53,7 @@ public class ProblemController {
             @PathVariable(name = "id") Long id,
             @PathVariable(name = "position") TrackPosition position) {
         var problem = trolleyProblemService.vote(id, position);
+        this.viewedProblems.addViewedProblem(problem.getId());
         return ResponseEntity.ok().body(problem);
     }
 }

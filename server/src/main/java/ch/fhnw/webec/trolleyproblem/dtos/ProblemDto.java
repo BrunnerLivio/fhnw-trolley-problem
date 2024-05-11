@@ -2,6 +2,7 @@ package ch.fhnw.webec.trolleyproblem.dtos;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -24,4 +25,5 @@ public class ProblemDto {
 
     private List<VictimDto> leftVictims;
     private List<VictimDto> rightVictims;
+    private Optional<Long> nextProblemId;
 }
