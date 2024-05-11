@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import ch.fhnw.webec.trolleyproblem.dtos.VictimDto;
-import ch.fhnw.webec.trolleyproblem.entities.VictimEntity;
 import ch.fhnw.webec.trolleyproblem.services.VictimService;
 
 @Controller
@@ -24,16 +23,7 @@ public class VictimController {
 
     @GetMapping("/")
     public ResponseEntity<List<VictimDto>> list() {
-        var victims = victimService
-                .findAll()
-                .stream()
-                .map(this::toDto)
-                .toList();
-
+        var victims = victimService.findAll();
         return ResponseEntity.ok().body(victims);
-    }
-
-    private VictimDto toDto(VictimEntity entity) {
-        return new VictimDto(entity.getId(), entity.getName(), entity.getImageUrl());
     }
 }

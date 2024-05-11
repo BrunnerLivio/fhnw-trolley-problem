@@ -5,7 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import ch.fhnw.webec.trolleyproblem.entities.CategoryEntity;
+import ch.fhnw.webec.trolleyproblem.dtos.CategoryDto;
+import ch.fhnw.webec.trolleyproblem.mappers.CategoryMapper;
 import ch.fhnw.webec.trolleyproblem.repositories.CategoryRepository;
 
 @Service
@@ -17,7 +18,7 @@ public class CategoryService {
         this.repository = repository;
     }
 
-    public List<CategoryEntity> findAll() {
-        return repository.findAll();
+    public List<CategoryDto> findAll() {
+        return CategoryMapper.INSTANCE.categoryEntitiesToCategoryDtos(repository.findAll());
     }
 }

@@ -7,8 +7,9 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import ch.fhnw.webec.trolleyproblem.entities.ProblemEntity;
+import ch.fhnw.webec.trolleyproblem.dtos.ProblemDto;
 import ch.fhnw.webec.trolleyproblem.entities.TrackPosition;
+import ch.fhnw.webec.trolleyproblem.mappers.ProblemMapper;
 import ch.fhnw.webec.trolleyproblem.repositories.ProblemRepository;
 
 @Service
@@ -21,24 +22,29 @@ public class ProblemService {
         this.repository = repository;
     }
 
-    public List<ProblemEntity> findAll() {
-        return repository.findAll();
+    public List<ProblemDto> findAll() {
+        return ProblemMapper.INSTANCE.problemEntitiesToProblemDtos(repository.findAll());
     }
 
-    public Optional<ProblemEntity> findRandom(String categoryName, List<Long> excludeIds) {
-        return repository.findRandom(categoryName, excludeIds);
+    public Optional<ProblemDto> findRandom(String categoryName, List<Long> excludeIds) {
+        return repository.findRandom(categoryName, excludeIds)
+                .map(ProblemMapper.INSTANCE::problemEntityToProblemDto);
     }
 
-    public Optional<ProblemEntity> findById(Long id) {
-        return repository.findById(id);
+    public Optional<ProblemDto> findById(Long id) {
+        return repository.findById(id)
+                .map(ProblemMapper.INSTANCE::problemEntityToProblemDto);
     }
 
-    public ProblemEntity vote(Long id, TrackPosition position) throws NoSuchElementException {
+    public ProblemDto vote(Long id, TrackPosition position) throws NoSuchElementException {
         if (position == TrackPosition.LEFT) {
             repository.voteLeft(id);
         } else {
             repository.voteRight(id);
         }
-        return repository.findById(id).orElseThrow();
+
+        return repository.findById(id)
+                .map(ProblemMapper.INSTANCE::problemEntityToProblemDto)
+                .orElseThrow();
     }
 }

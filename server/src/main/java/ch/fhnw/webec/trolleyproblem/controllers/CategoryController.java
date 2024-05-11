@@ -12,10 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import ch.fhnw.webec.trolleyproblem.dtos.CategoryDto;
 import ch.fhnw.webec.trolleyproblem.dtos.ProblemDto;
-import ch.fhnw.webec.trolleyproblem.dtos.VictimDto;
-import ch.fhnw.webec.trolleyproblem.entities.CategoryEntity;
-import ch.fhnw.webec.trolleyproblem.entities.ProblemEntity;
-import ch.fhnw.webec.trolleyproblem.entities.TrackPosition;
 import ch.fhnw.webec.trolleyproblem.services.CategoryService;
 import ch.fhnw.webec.trolleyproblem.services.ProblemService;
 import jakarta.servlet.http.HttpSession;
@@ -38,10 +34,7 @@ public class CategoryController {
     @GetMapping("/")
     public ResponseEntity<List<CategoryDto>> list() {
         var categories = categoryService
-                .findAll()
-                .stream()
-                .map(this::toDto)
-                .toList();
+                .findAll();
 
         return ResponseEntity.ok().body(categories);
     }
@@ -53,7 +46,6 @@ public class CategoryController {
         var viewedProblems = getOrCreateViewProblems();
 
         var problem = problemService.findRandom(categoryName, viewedProblems)
-                .map(this::toDto)
                 .orElse(null);
 
         if (problem == null) {
@@ -75,27 +67,5 @@ public class CategoryController {
             httpSession.setAttribute("viewedProblems", viewedProblems);
         }
         return viewedProblems;
-    }
-
-    private ProblemDto toDto(ProblemEntity entity) {
-        var category = new CategoryDto(entity.getCategory().getId(), entity.getCategory().getName());
-        var rightVictims = entity.getVictims()
-                .stream()
-                .filter(v -> v.getPosition() == TrackPosition.RIGHT)
-                .map(v -> new VictimDto(v.getVictim().getId(), v.getVictim().getName(), v.getVictim().getImageUrl()))
-                .toList();
-        var leftVictims = entity.getVictims()
-                .stream()
-                .filter(v -> v.getPosition() == TrackPosition.LEFT)
-                .map(v -> new VictimDto(v.getVictim().getId(), v.getVictim().getName(), v.getVictim().getImageUrl()))
-                .toList();
-
-        return new ProblemDto(entity.getId(), entity.getQuestion(), entity.getCreatedAt(), entity.getLeftVotes(),
-                entity.getRightVotes(), entity.getLeftLabel(), entity.getRightLabel(), category, leftVictims,
-                rightVictims);
-    }
-
-    private CategoryDto toDto(CategoryEntity entity) {
-        return new CategoryDto(entity.getId(), entity.getName());
     }
 }
