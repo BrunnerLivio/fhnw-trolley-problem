@@ -3,14 +3,15 @@
     import { problemService } from "../../services/ProblemService";
     import { Position } from "../../models/Position";
 
-    import VoteSummary from "../VoteSummary.svelte";
-    import Button from "../Button.svelte";
+    import VoteSummary from "./VoteSummary.svelte";
+    import Button from "../Ui/Button.svelte";
     import Diagram from "../Diagram/Diagram.svelte";
-    import Loading from "../Loading.svelte";
+    import Loading from "../Ui/Loading.svelte";
     import { link } from "svelte-spa-router";
     import { categoryService } from "../../services/CategoryService";
     import NotFound from "./NotFound.svelte";
     import AlreadyVoted from "./AlreadyVoted.svelte";
+    import SomethingWentWrong from "../Errors/SomethingWentWrong.svelte";
 
     export let params: { categoryName?: string; problemId?: number } = {};
 
@@ -80,15 +81,7 @@
         {:else if error.response.status === 403}
             <AlreadyVoted />
         {:else}
-            <div
-                class="flex flex-col items-center justify-center w-full gap-8 py-16"
-            >
-                <h2 class="text-2xl">Something went wrong</h2>
-
-                <a href="/" use:link>
-                    <Button>Go back</Button>
-                </a>
-            </div>
+            <SomethingWentWrong />
         {/if}
     {/await}
 </div>

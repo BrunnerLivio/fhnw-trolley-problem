@@ -1,5 +1,5 @@
 <script lang="ts">
-    import Button from "../../lib/Button.svelte";
+    import Button from "../Ui/Button.svelte";
     import type { Victim } from "../../models/Victim";
     import type { Problem } from "../../models/Problem";
 

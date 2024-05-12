@@ -1,5 +1,5 @@
 <script lang="ts">
-    import Trolley from "../assets/trolley.svg";
+    import Trolley from "../../assets/trolley.svg";
 
     const dots = ["", ".", "..", "..."];
     let dotIndex = 0;

@@ -3,7 +3,7 @@
     import CategorySelect from "../lib/Editor/CategorySelect.svelte";
     import Editor from "../lib/Editor/Editor.svelte";
     import QuestionInput from "../lib/Editor/QuestionInput.svelte";
-    import Loading from "../lib/Loading.svelte";
+    import Loading from "../lib/Ui/Loading.svelte";
     import type { Problem } from "../models/Problem";
     import type { ProblemCreate } from "../models/ProblemCreate";
     import type { Victim } from "../models/Victim";

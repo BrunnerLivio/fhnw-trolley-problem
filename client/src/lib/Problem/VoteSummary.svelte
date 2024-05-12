@@ -1,7 +1,6 @@
 <script lang="ts">
-    import { Position } from "../models/Position";
-    import Button from "./Button.svelte";
-    import PieChart from "./PieChart.svelte";
+    import { Position } from "../../models/Position";
+    import PieChart from "../Ui/PieChart.svelte";
 
     type Votes = {
         [Position.LEFT]: number;

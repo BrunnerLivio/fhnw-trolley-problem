@@ -1,8 +1,8 @@
 <script lang="ts">
     import { link, replace } from "svelte-spa-router";
-    import Loading from "../lib/Loading.svelte";
+    import Loading from "../lib/Ui/Loading.svelte";
     import { categoryService } from "../services/CategoryService";
-    import Button from "../lib/Button.svelte";
+    import Button from "../lib/Ui/Button.svelte";
     import NotFound from "../lib/Problem/NotFound.svelte";
 
     export let params: { categoryName?: string } = {};

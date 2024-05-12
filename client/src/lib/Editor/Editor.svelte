@@ -5,7 +5,7 @@
     import VictimsEditor from "./VictimsEditor.svelte";
     import type { ProblemCreate } from "../../models/ProblemCreate";
     import CategorySelect from "./CategorySelect.svelte";
-    import Collapse from "../Collapse.svelte";
+    import Collapse from "../Ui/Collapse.svelte";
     import LabelsInput from "./LabelsInput.svelte";
 
     export let problem: ProblemCreate;

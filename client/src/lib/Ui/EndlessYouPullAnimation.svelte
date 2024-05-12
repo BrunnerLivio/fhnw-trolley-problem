@@ -1,6 +1,6 @@
 <script lang="ts">
-    import You from "../assets/you.svg";
-    import YouPull from "../assets/you-pull.svg";
+    import You from "../../assets/you.svg";
+    import YouPull from "../../assets/you-pull.svg";
     import type { HTMLImgAttributes } from "svelte/elements";
 
     $: pull = false;

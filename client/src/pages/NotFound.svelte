@@ -1,6 +1,6 @@
 <script lang="ts">
-    import Button from "../lib/Button.svelte";
-    import EndlessYouPullAnimation from "../lib/EndlessYouPullAnimation.svelte";
+    import Button from "../lib/Ui/Button.svelte";
+    import EndlessYouPullAnimation from "../lib/Ui/EndlessYouPullAnimation.svelte";
 </script>
 
 <div class="flex flex-col items-center flex-1 h-full gap-16 mt-16">
