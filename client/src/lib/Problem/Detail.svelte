@@ -9,8 +9,8 @@
     import Loading from "../Loading.svelte";
     import { link } from "svelte-spa-router";
     import { categoryService } from "../../services/CategoryService";
-    import EndlessYouPullAnimation from "../EndlessYouPullAnimation.svelte";
     import NotFound from "./NotFound.svelte";
+    import AlreadyVoted from "./AlreadyVoted.svelte";
 
     export let params: { categoryName?: string; problemId?: number } = {};
 
@@ -77,6 +77,8 @@
     {:catch error}
         {#if error.response.status === 404}
             <NotFound />
+        {:else if error.response.status === 403}
+            <AlreadyVoted />
         {:else}
             <div
                 class="flex flex-col items-center justify-center w-full gap-8 py-16"

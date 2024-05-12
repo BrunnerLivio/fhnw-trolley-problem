@@ -6,6 +6,8 @@ import java.util.List;
 import ch.fhnw.webec.trolleyproblem.components.ViewedProblems;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import ch.fhnw.webec.trolleyproblem.dtos.ProblemDto;
 import ch.fhnw.webec.trolleyproblem.entities.TrackPosition;
 import ch.fhnw.webec.trolleyproblem.services.ProblemService;
+import org.springframework.web.server.ResponseStatusException;
 
 @Controller
 @RequestMapping("/api/problems")
@@ -39,11 +42,15 @@ public class ProblemController {
 
     @GetMapping("/{id}")
     public ResponseEntity<ProblemDto> get(@PathVariable(name = "id") Long id) {
+        if(viewedProblems.getViewedProblems().contains(id)) {
+            throw new ResponseStatusException(HttpStatus.GONE, "This problem has already been voted on");
+        }
         var trolleyProblem = trolleyProblemService.findById(id).orElse(null);
 
         if (trolleyProblem == null) {
             return ResponseEntity.notFound().build();
         }
+
 
         return ResponseEntity.ok().body(trolleyProblem);
     }
