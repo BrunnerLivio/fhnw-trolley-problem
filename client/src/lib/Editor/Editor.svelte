@@ -6,37 +6,56 @@
     import type { ProblemCreate } from "../../models/ProblemCreate";
     import CategorySelect from "./CategorySelect.svelte";
     import Collapse from "../Ui/Collapse.svelte";
-    import LabelsInput from "./LabelsInput.svelte";
+    import Input from "./Input.svelte";
 
     export let problem: ProblemCreate;
 
     export let categories: Category[] = [];
     export let allVictims: Victim[] = [];
+
+    const addVictim = (position: string, victim: Victim) => {
+        if (position === "left") {
+            problem.leftVictims = [...(problem.leftVictims || []), victim];
+        } else {
+            problem.rightVictims = [...(problem.rightVictims || []), victim];
+        }
+    };
 </script>
 
-<div class="flex flex-col items-center justify-center w-full">
-    <div class="flex flex-col w-full max-w-screen-lg gap-4 pb-4">
-        <QuestionInput bind:problem />
-        <CategorySelect bind:value={problem.categoryId} {categories} />
+<div class="flex flex-col flex-1 h-full">
+    <div class="flex flex-col items-center justify-center w-full">
+        <div class="flex flex-col w-full max-w-screen-lg gap-4 pt-4 pb-8">
+            <QuestionInput bind:problem />
+            <CategorySelect bind:value={problem.categoryId} {categories} />
+        </div>
     </div>
-</div>
-<div class="flex">
-    <div
-        class="flex flex-col w-full gap-4 p-8 border-t-2 border-b-2 border-r-2 max-w-96 border-primary"
-    >
-        <span class="mb-4 text-2xl font-bold">Editor</span>
-        <Collapse title="Labels">
-            <LabelsInput
-                bind:leftLabel={problem.leftLabel}
-                bind:rightLabel={problem.rightLabel}
-            />
-        </Collapse>
-        <Collapse title="Victims">
-            <VictimsEditor bind:problem {allVictims} />
-        </Collapse>
-    </div>
-    <div class="flex-1 p-8 border-t-2 border-b-2 border-primary">
-        <span class="mb-4 text-2xl font-bold">Preview</span>
-        <slot />
+    <div class="flex flex-1">
+        <div
+            class="flex flex-col w-full max-w-xl gap-4 p-8 border-t-2 border-b-2 border-r-2 border-primary"
+        >
+            <span class="text-2xl font-bold">Editor</span>
+            <Collapse title="Left Track">
+                <Input bind:value={problem.leftLabel} label="Label" />
+                <VictimsEditor
+                    {allVictims}
+                    on:add={(e) => addVictim("left", e.detail)}
+                />
+            </Collapse>
+            <Collapse title="Right Track">
+                <Input bind:value={problem.rightLabel} label="Label" />
+                <VictimsEditor
+                    {allVictims}
+                    on:add={(e) => addVictim("right", e.detail)}
+                />
+            </Collapse>
+        </div>
+        <div class="flex-1 p-8 border-t-2 border-b-2 border-primary">
+            <span class="mb-4 text-2xl font-bold">Preview</span>
+            <div class="flex items-center justify-center w-full">
+                <div class="w-full max-w-2xl">
+                    <slot />
+                </div>
+            </div>
+        </div>
     </div>
 </div>

@@ -8,12 +8,21 @@
     import Trolley from "./Trolley.svelte";
     import VictimCmp from "./Victim.svelte";
     import Label from "./Label.svelte";
+    import { createEventDispatcher } from "svelte";
 
     export let leftVictims: Victim[] = [];
     export let rightVictims: Victim[] = [];
     export let leftLabel: string | null;
     export let rightLabel: string | null;
     export let chosenOption: Position | null = null;
+    export let deletable: boolean = true;
+
+    const dispatch = createEventDispatcher<{
+        delete: {
+            directional: "LEFT" | "RIGHT";
+            index: number;
+        };
+    }>();
 
     let displaySplat: boolean;
 
@@ -45,7 +54,14 @@
         <div class="absolute max-w-[33%] flex top-[0%] left-3/4">
             {#if !leftDead}
                 {#each leftVictims as victim, index}
-                    <VictimCmp yOffsetMultiplier={5} {victim} {index} />
+                    <VictimCmp
+                        showDelete={deletable}
+                        on:delete={() =>
+                            dispatch("delete", { directional: "LEFT", index })}
+                        yOffsetMultiplier={5}
+                        {victim}
+                        {index}
+                    />
                 {/each}
             {/if}
             {#if leftDead && leftVictims.length > 0}
@@ -61,10 +77,17 @@
             </div>
         {/if}
 
-        <div class="absolute max-w-[32%] flex top-[38%] left-[55%]">
+        <div class="absolute max-w-[40%] flex top-[38%] left-[55%]">
             {#if !rightDead}
                 {#each rightVictims as victim, index}
-                    <VictimCmp yOffsetMultiplier={10} {victim} {index} />
+                    <VictimCmp
+                        showDelete={deletable}
+                        on:delete={(e) =>
+                            dispatch("delete", { directional: "RIGHT", index })}
+                        yOffsetMultiplier={10}
+                        {victim}
+                        {index}
+                    />
                 {/each}
             {/if}
             {#if rightDead && rightVictims.length > 0}

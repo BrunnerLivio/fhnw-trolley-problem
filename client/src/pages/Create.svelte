@@ -24,23 +24,36 @@
 
     const loadingPromise = Promise.all([categoriesPromise, victimsPromise]);
 
+    const handleDeleteVictim = ({
+        directional,
+        index,
+    }: {
+        directional: "LEFT" | "RIGHT";
+        index: number;
+    }) => {
+        console.log({ directional, index });
+        if (directional === "LEFT") {
+            problem.leftVictims = problem.leftVictims.filter((_, i) => i !== index);
+        } else {
+            problem.rightVictims = problem.rightVictims.filter((_, i) => i !== index);
+        }
+    };
+
     $: problem = initialProblem;
 </script>
 
-<div class="flex flex-col w-full gap-8">
+<div class="flex flex-col flex-1 w-full gap-8">
     {#await loadingPromise}
         <Loading />
     {:then [categories, allVictims]}
         {#if problem}
-            <pre>
-                {JSON.stringify(problem, null, 2)}
-            </pre>
             <Editor {categories} {allVictims} bind:problem>
                 <Diagram
                     leftVictims={problem.leftVictims}
                     rightVictims={problem.rightVictims}
                     leftLabel={problem.leftLabel}
                     rightLabel={problem.rightLabel}
+                    on:delete={(e) => handleDeleteVictim(e.detail)}
                 />
             </Editor>
         {/if}
