@@ -6,8 +6,13 @@
     export let index: number;
     export let yOffsetMultiplier: number;
     export let showDelete: boolean;
+    export let total: number;
 
     const dispatch = createEventDispatcher<{ delete: null }>();
+
+    $: t = total === 1 ? 2 : total;
+    $: centerLeft = 100 / t;
+    $: console.log({ centerLeft });
 
     $: ratio = 0;
 
@@ -18,8 +23,8 @@
 </script>
 
 <div
-    class="absolute w-full"
-    style:left={index * 10 + "%"}
+    class="absolute w-full -translate-x-1/2"
+    style:left={index * 10 + centerLeft + "%"}
     style:top={index * yOffsetMultiplier + "%"}
     style:max-width={ratio * 40 + "%"}
 >

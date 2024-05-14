@@ -57,6 +57,7 @@
             {#if !leftDead}
                 {#each leftVictims as victim, index}
                     <VictimCmp
+                        total={leftVictims.length}
                         showDelete={deletable}
                         on:delete={() =>
                             dispatch("delete", { directional: "LEFT", index })}
@@ -85,6 +86,7 @@
             {#if !rightDead}
                 {#each rightVictims as victim, index}
                     <VictimCmp
+                        total={rightVictims.length}
                         showDelete={deletable}
                         on:delete={(e) =>
                             dispatch("delete", { directional: "RIGHT", index })}
