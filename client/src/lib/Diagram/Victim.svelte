@@ -17,9 +17,12 @@
     };
 </script>
 
+<!-- style={`translateY(${index * yOffsetMultiplier}%) translateX(${index * -65}%)`} -->
+
 <div
-    class="relative w-full max-w-[35%]"
-    style:transform={`translateY(${index * yOffsetMultiplier}%) translateX(${index * -65}%)`}
+    class="absolute w-full max-w-[35%]"
+    style:left={index * 10 + "%"}
+    style:top={index * yOffsetMultiplier + "%"}
 >
     {#if showDelete}
         <button

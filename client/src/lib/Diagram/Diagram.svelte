@@ -45,13 +45,15 @@
 
         {#if !!leftLabel}
             <div
-                class="absolute right-[25%] top-[0%] z-10 max-w-56 -translate-y-1/2"
+                class="absolute right-[35%] top-[0%] z-10 max-w-56 -translate-y-1/2"
             >
                 <Label label={leftLabel} />
             </div>
         {/if}
 
-        <div class="absolute max-w-[33%] flex top-[0%] left-3/4">
+        <div
+            class="absolute max-w-[35%] max-h-[30%] h-full w-full -top-[5%] left-[65%]"
+        >
             {#if !leftDead}
                 {#each leftVictims as victim, index}
                     <VictimCmp
@@ -77,7 +79,9 @@
             </div>
         {/if}
 
-        <div class="absolute max-w-[40%] flex top-[38%] left-[55%]">
+        <div
+            class="absolute max-w-[40%] max-h-[30%] h-full w-full top-[38%] left-[55%]"
+        >
             {#if !rightDead}
                 {#each rightVictims as victim, index}
                     <VictimCmp
