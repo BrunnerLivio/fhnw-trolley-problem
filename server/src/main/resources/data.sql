@@ -12,6 +12,12 @@ INSERT INTO problem (question, right_votes, left_votes, left_label, right_label,
 INSERT INTO victim (name, image_url) VALUES ('Person', 'https://d3rjk7x0pvg6e3.cloudfront.net/one-guy.svg');
 INSERT INTO victim (name, image_url) VALUES ('Money', 'https://d3rjk7x0pvg6e3.cloudfront.net/money.svg');
 INSERT INTO victim (name, image_url) VALUES ('Mona Lisa', 'https://d3rjk7x0pvg6e3.cloudfront.net/mona-lisa.svg');
+INSERT INTO victim (name, image_url) VALUES ('Rich Guy', 'https://d3rjk7x0pvg6e3.cloudfront.net/rich-guy.svg');
+INSERT INTO victim (name, image_url) VALUES ('Baby', 'https://d3rjk7x0pvg6e3.cloudfront.net/one-baby.svg');
+INSERT INTO victim (name, image_url) VALUES ('Trolley', 'https://d3rjk7x0pvg6e3.cloudfront.net/one-trolley.svg');
+INSERT INTO victim (name, image_url) VALUES ('Cat', 'https://d3rjk7x0pvg6e3.cloudfront.net/cat.svg');
+INSERT INTO victim (name, image_url) VALUES ('Brick Wall', 'https://d3rjk7x0pvg6e3.cloudfront.net/brick-wall.svg');
+INSERT INTO victim (name, image_url) VALUES ('Enemy', 'https://d3rjk7x0pvg6e3.cloudfront.net/enemy.svg');
 
 INSERT INTO problem_victim (problem_id, victim_id, position) VALUES (1, 1, 0);
 INSERT INTO problem_victim (problem_id, victim_id, position) VALUES (1, 1, 1);
