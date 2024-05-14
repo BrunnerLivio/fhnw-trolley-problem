@@ -3,6 +3,7 @@
     import Loading from "../lib/Ui/Loading.svelte";
     import { categoryService } from "../services/CategoryService";
     import Button from "../lib/Ui/Button.svelte";
+    import ErrorWrapper from "../lib/Errors/ErrorWrapper.svelte";
 
     const categoryPromise = categoryService.list();
 </script>
@@ -46,7 +47,10 @@
             </a>
         </div>
     {:catch}
-        <p class="text-2xl">Failed to load categories</p>
+        <ErrorWrapper
+            title="Failed to load categories"
+            description="An unexpected error occurred. Please try again later."
+        />
     {/await}
 </div>
 
