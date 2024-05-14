@@ -33,9 +33,13 @@
     }) => {
         console.log({ directional, index });
         if (directional === "LEFT") {
-            problem.leftVictims = problem.leftVictims.filter((_, i) => i !== index);
+            problem.leftVictims = problem.leftVictims.filter(
+                (_, i) => i !== index,
+            );
         } else {
-            problem.rightVictims = problem.rightVictims.filter((_, i) => i !== index);
+            problem.rightVictims = problem.rightVictims.filter(
+                (_, i) => i !== index,
+            );
         }
     };
 
@@ -53,6 +57,7 @@
                     rightVictims={problem.rightVictims}
                     leftLabel={problem.leftLabel}
                     rightLabel={problem.rightLabel}
+                    deletable
                     on:delete={(e) => handleDeleteVictim(e.detail)}
                 />
             </Editor>

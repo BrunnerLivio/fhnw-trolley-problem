@@ -52,7 +52,7 @@
         <div class="flex-1 p-8 border-t-2 border-b-2 border-primary">
             <span class="mb-4 text-2xl font-bold">Preview</span>
             <div class="flex items-center justify-center w-full">
-                <div class="w-full max-w-2xl">
+                <div class="w-full max-w-3xl">
                     <slot />
                 </div>
             </div>

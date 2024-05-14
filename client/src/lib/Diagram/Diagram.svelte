@@ -15,7 +15,7 @@
     export let leftLabel: string | null;
     export let rightLabel: string | null;
     export let chosenOption: Position | null = null;
-    export let deletable: boolean = true;
+    export let deletable: boolean = false;
 
     const dispatch = createEventDispatcher<{
         delete: {
