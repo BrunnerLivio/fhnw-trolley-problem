@@ -43,17 +43,16 @@
         <img src={Track} alt="Track" />
         <Trolley {chosenOption} />
 
-        {#if !!leftLabel}
-            <div
-                class="absolute right-[35%] top-[0%] z-10 max-w-56 -translate-y-1/2"
-            >
-                <Label label={leftLabel} />
-            </div>
-        {/if}
-
         <div
             class="absolute max-w-[35%] max-h-[30%] h-full w-full -top-[5%] left-[65%]"
         >
+            {#if !!leftLabel}
+                <div
+                    class="relative -left-[35%] top-[0%] z-10 max-w-56 -translate-y-1/2"
+                >
+                    <Label label={leftLabel} />
+                </div>
+            {/if}
             {#if !leftDead}
                 {#each leftVictims as victim, index}
                     <VictimCmp
@@ -72,17 +71,16 @@
             {/if}
         </div>
 
-        {#if !!rightLabel}
-            <div
-                class="absolute right-[43%] top-[42%] z-10 max-w-56 -translate-y-1/2"
-            >
-                <Label label={rightLabel} />
-            </div>
-        {/if}
-
         <div
             class="absolute max-w-[40%] max-h-[30%] h-full w-full top-[38%] left-[55%]"
         >
+            {#if !!rightLabel}
+                <div
+                    class="relative right-[43%] top-[42%] z-10 max-w-56 -translate-y-1/2"
+                >
+                    <Label label={rightLabel} />
+                </div>
+            {/if}
             {#if !rightDead}
                 {#each rightVictims as victim, index}
                     <VictimCmp
