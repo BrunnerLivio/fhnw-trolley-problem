@@ -12,7 +12,6 @@
 
     $: t = total === 1 ? 2 : total;
     $: centerLeft = 100 / t;
-    $: console.log({ centerLeft });
 
     $: ratio = 0;
 

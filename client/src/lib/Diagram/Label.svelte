@@ -7,7 +7,7 @@
 <span class="flex w-full gap-4 align-bottom">
     <span
         class="text-2xl font-bold text-right text-primary"
-        style={`text-shadow: 2px 2px 0 rgb(255, 255, 255),
+        style:text-shadow={`2px 2px 0 rgb(255, 255, 255),
                              2px -2px 0 rgb(255, 255, 255),
                              -2px 2px 0 rgb(255, 255, 255),
                              -2px -2px 0 rgb(255, 255, 255)`}
@@ -15,8 +15,7 @@
         {label}
     </span>
     <img
-        style={`
-        filter: drop-shadow(2px 2px 0px rgb(255,255,255))
+        style:filter={`drop-shadow(2px 2px 0px rgb(255,255,255))
                 drop-shadow(-2px -2px 0 rgb(255,255,255))
                 drop-shadow(2px -2px 0 rgb(255,255,255))
                 drop-shadow(-2px 2px 0 rgb(255,255,255));`}
