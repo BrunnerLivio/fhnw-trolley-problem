@@ -2,7 +2,6 @@ package ch.fhnw.webec.trolleyproblem.components;
 
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.annotation.SessionScope;
 

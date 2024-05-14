@@ -1,6 +1,5 @@
 package ch.fhnw.webec.trolleyproblem.controllers;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import ch.fhnw.webec.trolleyproblem.components.ViewedProblems;

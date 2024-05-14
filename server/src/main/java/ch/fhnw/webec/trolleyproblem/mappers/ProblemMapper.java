@@ -2,7 +2,6 @@ package ch.fhnw.webec.trolleyproblem.mappers;
 
 import java.util.List;
 
-import ch.fhnw.webec.trolleyproblem.dtos.RandomProblemDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;
@@ -20,6 +19,7 @@ public interface ProblemMapper {
 
     @Mapping(source = "victims", target = "leftVictims", qualifiedByName = "leftVictims")
     @Mapping(source = "victims", target = "rightVictims", qualifiedByName = "rightVictims")
+    @Mapping(target = "nextProblemId", ignore = true)
     ProblemDto problemEntityToProblemDto(ProblemEntity problemEntity);
 
     List<ProblemDto> problemEntitiesToProblemDtos(List<ProblemEntity> problemEntities);
