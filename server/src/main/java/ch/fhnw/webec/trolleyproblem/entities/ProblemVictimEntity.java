@@ -11,16 +11,13 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
+@RequiredArgsConstructor
 @AllArgsConstructor
 @Table(name = "problem_victim")
 public class ProblemVictimEntity {
@@ -38,11 +35,14 @@ public class ProblemVictimEntity {
     private VictimEntity victim;
 
     @Enumerated(EnumType.ORDINAL)
+    @NonNull
     private TrackPosition position;
 
     @Column(name = "problem_id")
+    @NonNull
     private Long problemId;
 
     @Column(name = "victim_id")
+    @NonNull
     private Long victimId;
 }

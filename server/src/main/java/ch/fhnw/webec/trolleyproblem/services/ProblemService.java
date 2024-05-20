@@ -9,6 +9,8 @@ import ch.fhnw.webec.trolleyproblem.dtos.RandomProblemDto;
 import ch.fhnw.webec.trolleyproblem.entities.ProblemEntity;
 import ch.fhnw.webec.trolleyproblem.entities.ProblemVictimEntity;
 
+import ch.fhnw.webec.trolleyproblem.repositories.ProblemVictimRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -23,10 +25,12 @@ import org.springframework.web.server.ResponseStatusException;
 public class ProblemService {
 
     private final ProblemRepository repository;
+    private final ProblemVictimRepository problemVictimRepository;
 
     @Autowired
-    public ProblemService(ProblemRepository repository) {
+    public ProblemService(ProblemRepository repository, ProblemVictimRepository problemVictimRepository) {
         this.repository = repository;
+        this.problemVictimRepository = problemVictimRepository;
     }
 
     public List<ProblemDto> findAll() {
@@ -73,33 +77,24 @@ public class ProblemService {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Unable to find resource"));
     }
 
+    @Transactional
     public ProblemDto create(ProblemCreateDto dto) {
         var entity = new ProblemEntity(dto.getQuestion(), dto.getLeftLabel(), dto.getRightLabel());
         entity.setCategoryId(dto.getCategoryId());
+        var savedEntity = repository.save(entity);
+
         var victims = new ArrayList<ProblemVictimEntity>();
         dto.getLeftVictims()
-                .stream()
-                .forEach(victimDto -> {
-                    var victim = new ProblemVictimEntity();
-                    victim.setVictimId(victimDto.getId());
-                    victim.setPosition(TrackPosition.LEFT);
-                    victim.setProblem(entity);
-                    victims.add(victim);
-                });
-
+            .forEach(victimDto -> {
+                var victim = new ProblemVictimEntity(TrackPosition.LEFT, savedEntity.getId(), victimDto.getId());
+                victims.add(victim);
+            });
         dto.getRightVictims()
-                .stream()
-                .forEach(victimDto -> {
-                    var victim = new ProblemVictimEntity();
-                    victim.setVictimId(victimDto.getId());
-                    victim.setPosition(TrackPosition.RIGHT);
-                    victim.setProblem(entity);
-                    victims.add(victim);
-                });
-
-        entity.setVictims(victims);
-
-         var savedEntity = repository.save(entity);
+            .forEach(victimDto -> {
+                var victim = new ProblemVictimEntity(TrackPosition.RIGHT, savedEntity.getId(), victimDto.getId());
+                victims.add(victim);
+            });
+        problemVictimRepository.saveAll(victims);
         return ProblemMapper.INSTANCE.problemEntityToProblemDto(savedEntity);
     }
 }

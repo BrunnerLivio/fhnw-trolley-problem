@@ -22,16 +22,11 @@
     };
 
     const addVictim = (position: string, victim: Victim) => {
-        const transition = (document as any).startViewTransition(() => {
-            if (position === "left") {
-                problem.leftVictims = [...(problem.leftVictims || []), victim];
-            } else {
-                problem.rightVictims = [
-                    ...(problem.rightVictims || []),
-                    victim,
-                ];
-            }
-        });
+        if (position === "left") {
+            problem.leftVictims = [...(problem.leftVictims || []), victim];
+        } else {
+            problem.rightVictims = [...(problem.rightVictims || []), victim];
+        }
     };
 </script>
 
