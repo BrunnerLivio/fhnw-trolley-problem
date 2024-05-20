@@ -3,14 +3,12 @@ package ch.fhnw.webec.trolleyproblem.controllers;
 import java.util.List;
 
 import ch.fhnw.webec.trolleyproblem.components.ViewedProblems;
+import ch.fhnw.webec.trolleyproblem.dtos.ProblemCreateDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import ch.fhnw.webec.trolleyproblem.dtos.ProblemDto;
 import ch.fhnw.webec.trolleyproblem.entities.TrackPosition;
@@ -37,9 +35,15 @@ public class ProblemController {
         return ResponseEntity.ok().body(trolleyProblems);
     }
 
+    @PostMapping("/")
+    public ResponseEntity<ProblemDto> create(@RequestBody ProblemCreateDto problemDto) {
+        var response = trolleyProblemService.create(problemDto);
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<ProblemDto> get(@PathVariable(name = "id") Long id) {
-        if(viewedProblems.getViewedProblems().contains(id)) {
+        if (viewedProblems.getViewedProblems().contains(id)) {
             throw new ResponseStatusException(HttpStatus.GONE, "This problem has already been voted on");
         }
         var trolleyProblem = trolleyProblemService.findById(id).orElse(null);
@@ -47,7 +51,6 @@ public class ProblemController {
         if (trolleyProblem == null) {
             return ResponseEntity.notFound().build();
         }
-
 
         return ResponseEntity.ok().body(trolleyProblem);
     }

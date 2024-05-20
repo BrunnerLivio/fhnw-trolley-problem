@@ -25,4 +25,8 @@ public interface ProblemRepository extends JpaRepository<ProblemEntity, Long> {
     @Transactional
     @Query("update ProblemEntity p set p.rightVotes = p.rightVotes + 1 WHERE p.id = :id")
     void voteRight(@Param(value = "id") Long id);
+
+    @Transactional
+    @Modifying(flushAutomatically = true, clearAutomatically = true)
+    ProblemEntity save(ProblemEntity problem);
 }

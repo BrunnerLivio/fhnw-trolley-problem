@@ -7,18 +7,31 @@
     import CategorySelect from "./CategorySelect.svelte";
     import Collapse from "../Ui/Collapse.svelte";
     import Input from "./Input.svelte";
+    import Button from "../Ui/Button.svelte";
+    import { createEventDispatcher } from "svelte";
 
     export let problem: ProblemCreate;
 
     export let categories: Category[] = [];
     export let allVictims: Victim[] = [];
 
+    const dispatch = createEventDispatcher<{ submit: ProblemCreate }>();
+
+    const handleSubmit = () => {
+        dispatch("submit", problem);
+    };
+
     const addVictim = (position: string, victim: Victim) => {
-        if (position === "left") {
-            problem.leftVictims = [...(problem.leftVictims || []), victim];
-        } else {
-            problem.rightVictims = [...(problem.rightVictims || []), victim];
-        }
+        const transition = (document as any).startViewTransition(() => {
+            if (position === "left") {
+                problem.leftVictims = [...(problem.leftVictims || []), victim];
+            } else {
+                problem.rightVictims = [
+                    ...(problem.rightVictims || []),
+                    victim,
+                ];
+            }
+        });
     };
 </script>
 
@@ -26,7 +39,11 @@
     <div class="flex flex-col items-center justify-center w-full">
         <div class="flex flex-col w-full max-w-screen-lg gap-4 pt-4 pb-8">
             <QuestionInput bind:problem />
-            <CategorySelect bind:value={problem.categoryId} {categories} />
+            <CategorySelect
+                value={problem.categoryId}
+                {categories}
+                on:change={(e) => (problem.categoryId = e.detail)}
+            />
         </div>
     </div>
     <div class="flex flex-1">
@@ -57,5 +74,10 @@
                 </div>
             </div>
         </div>
+    </div>
+    <div class="flex justify-center p-8">
+        <Button class="w-32 h-12" variant="primary" on:click={handleSubmit}
+            >Submit</Button
+        >
     </div>
 </div>

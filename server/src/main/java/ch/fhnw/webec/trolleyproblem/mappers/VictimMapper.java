@@ -20,4 +20,6 @@ public interface VictimMapper {
 
     VictimDto victimEntityToVictimDto(VictimEntity victimEntity);
     List<VictimDto> victimEntityToVictimDto(List<VictimEntity> victimEntity);
+
+    ProblemVictimEntity victimDtoToProblemVictimEntity(VictimDto dto);
 }

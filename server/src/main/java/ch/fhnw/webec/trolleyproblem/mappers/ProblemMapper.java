@@ -1,5 +1,6 @@
 package ch.fhnw.webec.trolleyproblem.mappers;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.mapstruct.Mapper;
@@ -25,7 +26,34 @@ public interface ProblemMapper {
     List<ProblemDto> problemEntitiesToProblemDtos(List<ProblemEntity> problemEntities);
 
     @Named("leftVictims")
+    default List<ProblemVictimEntity> leftVictimsToProblemVictims(List<VictimDto> victims) {
+        if(victims == null) {
+            return new ArrayList<>();
+        }
+        return victims
+            .stream()
+            .map(VictimMapper.INSTANCE::victimDtoToProblemVictimEntity)
+            .peek(victim -> victim.setPosition(TrackPosition.LEFT))
+            .toList();
+    }
+
+    @Named("rightVictims")
+    default List<ProblemVictimEntity> rightVictimsToProblemVictims(List<VictimDto> victims) {
+        if (victims == null) {
+            return new ArrayList<>();
+        }
+        return victims
+            .stream()
+            .map(VictimMapper.INSTANCE::victimDtoToProblemVictimEntity)
+            .peek(victim -> victim.setPosition(TrackPosition.RIGHT))
+            .toList();
+    }
+
+    @Named("leftVictims")
     default List<VictimDto> leftVictims(List<ProblemVictimEntity> victims) {
+        if (victims == null) {
+            return new ArrayList<>();
+        }
         return victims
                 .stream()
                 .filter(victim -> victim.getPosition() == TrackPosition.LEFT)
@@ -35,6 +63,9 @@ public interface ProblemMapper {
 
     @Named("rightVictims")
     default List<VictimDto> rightVictims(List<ProblemVictimEntity> victims) {
+        if(victims == null) {
+            return new ArrayList<>();
+        }
         return victims
                 .stream()
                 .filter(victim -> victim.getPosition() == TrackPosition.RIGHT)

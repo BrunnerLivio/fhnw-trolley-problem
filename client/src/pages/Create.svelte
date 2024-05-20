@@ -1,13 +1,10 @@
 <script lang="ts">
     import Diagram from "../lib/Diagram/Diagram.svelte";
-    import CategorySelect from "../lib/Editor/CategorySelect.svelte";
     import Editor from "../lib/Editor/Editor.svelte";
-    import QuestionInput from "../lib/Editor/QuestionInput.svelte";
     import Loading from "../lib/Ui/Loading.svelte";
-    import type { Problem } from "../models/Problem";
     import type { ProblemCreate } from "../models/ProblemCreate";
-    import type { Victim } from "../models/Victim";
     import { categoryService } from "../services/CategoryService";
+    import { problemService } from "../services/ProblemService";
     import { victimService } from "../services/VictimService";
 
     const initialProblem: ProblemCreate = {
@@ -15,8 +12,8 @@
         leftVictims: [],
         rightVictims: [],
         categoryId: 0,
-        leftLabel: null,
-        rightLabel: null,
+        leftLabel: "",
+        rightLabel: "",
     };
 
     const categoriesPromise = categoryService.list();
@@ -43,6 +40,10 @@
         }
     };
 
+    const handleSubmit = (problem: ProblemCreate) => {
+        problemService.create(problem);
+    };
+
     $: problem = initialProblem;
 </script>
 
@@ -51,7 +52,15 @@
         <Loading />
     {:then [categories, allVictims]}
         {#if problem}
-            <Editor {categories} {allVictims} bind:problem>
+            <!-- <pre>
+            {JSON.stringify(problem, null, 2)}
+        </pre> -->
+            <Editor
+                on:submit={(e) => handleSubmit(e.detail)}
+                {categories}
+                {allVictims}
+                bind:problem
+            >
                 <Diagram
                     leftVictims={problem.leftVictims}
                     rightVictims={problem.rightVictims}
