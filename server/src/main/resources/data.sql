@@ -36,6 +36,8 @@ INSERT INTO problem_victim (problem_id, victim_id, position) VALUES (2, 1, 1);
 INSERT INTO problem_victim (problem_id, victim_id, position) VALUES (2, 1, 1);
 INSERT INTO problem_victim (problem_id, victim_id, position) VALUES (2, 1, 1);
 
-
 INSERT INTO comment (text, problem_id, author) VALUES ('I would pull the lever', 1, 'Jane Doe');
 INSERT INTO comment (text, problem_id, author) VALUES ('I would not pull the lever', 1, 'John Doe');
+INSERT INTO comment (text, problem_id, author) VALUES ('ROFL', 2, 'Troll');
+INSERT INTO comment (text, problem_id, author) VALUES ('CRAZZY', 2, 'Mr. Ethical');
+INSERT INTO comment (text, problem_id, author) VALUES ('What the hell was that????', 2, 'Mr. Unethical');

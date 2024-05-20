@@ -1,3 +1,4 @@
+import type { Comment } from "../models/Comment";
 import type { Position } from "../models/Position";
 import type { Problem } from "../models/Problem";
 import type { ProblemCreate } from "../models/ProblemCreate";
@@ -27,6 +28,11 @@ const vote = async (problemId: number, position: Position) => {
     return await response.json<Problem>();
 };
 
+const comments = async (problemId: number) => {
+    const response = await api.get(`api/problems/${problemId}/comments`);
+    return await response.json<Comment[]>();
+};
+
 const detail = async (problemId: number) => {
     const response = await api.get(`api/problems/${problemId}`);
     return await response.json<Problem>();
@@ -37,5 +43,6 @@ export const problemService = {
     random,
     vote,
     detail,
+    comments,
     create,
 };

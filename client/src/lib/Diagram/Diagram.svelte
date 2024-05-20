@@ -38,7 +38,7 @@
     }
 </script>
 
-<div class="w-full overflow-hidden" role="presentation">
+<div class={`w-full overflow-hidden`} role="presentation">
     <div class="relative mt-32">
         <img src={Track} alt="Track" />
         <Trolley {chosenOption} />

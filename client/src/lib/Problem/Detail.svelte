@@ -5,6 +5,7 @@
 
     import VoteSummary from "./VoteSummary.svelte";
     import Button from "../Ui/Button.svelte";
+    import Comments from "../Comments/Comments.svelte";
     import Diagram from "../Diagram/Diagram.svelte";
     import Loading from "../Ui/Loading.svelte";
     import { link } from "svelte-spa-router";
@@ -73,6 +74,7 @@
                         <Button>Go back</Button>
                     </a>
                 {/if}
+                <Comments problemId={problem.id} />
             </VoteSummary>
         {/if}
     {:catch error}

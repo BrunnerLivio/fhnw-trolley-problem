@@ -3,7 +3,9 @@ package ch.fhnw.webec.trolleyproblem.controllers;
 import java.util.List;
 
 import ch.fhnw.webec.trolleyproblem.components.ViewedProblems;
+import ch.fhnw.webec.trolleyproblem.dtos.CommentDto;
 import ch.fhnw.webec.trolleyproblem.dtos.ProblemCreateDto;
+import ch.fhnw.webec.trolleyproblem.services.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,11 +22,13 @@ import org.springframework.web.server.ResponseStatusException;
 public class ProblemController {
     private final ProblemService trolleyProblemService;
     private final ViewedProblems viewedProblems;
+    private final CommentService commentService;
 
     @Autowired
-    public ProblemController(ProblemService trolleyProblemService, ViewedProblems viewedProblems) {
+    public ProblemController(ProblemService trolleyProblemService, ViewedProblems viewedProblems, CommentService commentService) {
         this.trolleyProblemService = trolleyProblemService;
         this.viewedProblems = viewedProblems;
+        this.commentService = commentService;
     }
 
     @GetMapping("/")
@@ -53,6 +57,12 @@ public class ProblemController {
         }
 
         return ResponseEntity.ok().body(trolleyProblem);
+    }
+
+    @GetMapping("/{id}/comments")
+    public ResponseEntity<List<CommentDto>> getComments(@PathVariable(name = "id") Long id) {
+        var comments = this.commentService.findByProblemId(id);
+        return ResponseEntity.ok().body(comments);
     }
 
     @PostMapping("/{id}/vote/{position}")
