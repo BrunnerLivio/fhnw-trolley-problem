@@ -15,6 +15,7 @@
         author: localStorageAuthor || "",
     };
     $: commentsPromise = Promise.resolve<any>([]);
+    $: disabledAuthor = !!localStorageAuthor;
 
     const fetchComments = () => {
         commentsPromise = problemService.comments(problemId);
@@ -31,6 +32,7 @@
             ...initialValues,
             author: comment.author,
         };
+        disabledAuthor = true;
         fetchComments();
     };
 
