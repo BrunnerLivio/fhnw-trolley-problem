@@ -15,7 +15,9 @@
         <div class="flex flex-col items-center w-full gap-4">
             <p class="text-2xl text-center">Browser trolley problems</p>
 
-            <ul class="grid w-full grid-cols-3 gap-4 mt-8">
+            <ul
+                class="grid w-full grid-cols-1 gap-4 mt-8 md:grid-cols-2 lg:grid-cols-3"
+            >
                 {#each categories as category}
                     <li class="flex justify-center w-full">
                         <a href={`/category/${category.name}`} use:link>

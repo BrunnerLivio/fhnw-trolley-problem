@@ -36,7 +36,7 @@
     };
 </script>
 
-<div class="flex flex-col flex-1 w-full h-full max-w-screen-lg">
+<div class="flex flex-col flex-1 w-full h-full max-w-screen-lg px-4 pb-16">
     {#await problemPromise}
         <Loading />
     {:then problem}
@@ -51,7 +51,9 @@
         />
 
         {#if !chosenOption}
-            <div class="flex justify-center gap-4 mt-8">
+            <div
+                class="flex flex-col items-center justify-center gap-4 mt-8 md:flex-row"
+            >
                 <Button on:click={() => handleVote(problem.id, Position.LEFT)}>
                     Pull the lever
                 </Button>

@@ -18,9 +18,9 @@
 </script>
 
 <div
-    class="fixed bottom-0 left-0 flex flex-col items-center w-full gap-16 p-8 text-2xl border-t-2 backdrop-blur-lg border-t-primary"
+    class="fixed bottom-0 left-0 z-30 flex flex-col items-center w-full max-h-screen gap-16 p-8 overflow-y-auto text-2xl border-t-2 backdrop-blur-lg border-t-primary"
 >
-    <div class="flex items-center justify-center gap-4">
+    <div class="flex flex-col items-center justify-center gap-4 md:flex-row">
         <PieChart percentage={votes[chosenOption]} />
         <span>
             {chosenVotesPercentage}% of people agree with you, {otherVotesPercentage}%

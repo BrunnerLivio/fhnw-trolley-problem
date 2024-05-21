@@ -13,6 +13,8 @@ public interface CommentMapper {
     CommentMapper INSTANCE = Mappers.getMapper(CommentMapper.class);
 
     List<CommentDto> commentEntityToCommentDtoList(List<CommentEntity> comments);
+    CommentDto commentEntityToCommentDto(CommentEntity comment);
+    CommentEntity commentDtoToCommentEntity(CommentDto comment);
 
     @Named("initials")
     default String initials(CommentEntity comment) {

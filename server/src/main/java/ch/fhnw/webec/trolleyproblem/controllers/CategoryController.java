@@ -2,7 +2,7 @@ package ch.fhnw.webec.trolleyproblem.controllers;
 
 import java.util.List;
 
-import ch.fhnw.webec.trolleyproblem.components.ViewedProblems;
+import ch.fhnw.webec.trolleyproblem.components.UserSession;
 import ch.fhnw.webec.trolleyproblem.dtos.RandomProblemDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,13 +23,13 @@ import org.springframework.web.server.ResponseStatusException;
 public class CategoryController {
     private final CategoryService categoryService;
     private final ProblemService problemService;
-    private final ViewedProblems viewedProblems;
+    private final UserSession userSession;
 
     @Autowired
-    public CategoryController(CategoryService categoryService, ProblemService problemService, ViewedProblems viewedProblems) {
+    public CategoryController(CategoryService categoryService, ProblemService problemService, UserSession userSession) {
         this.categoryService = categoryService;
         this.problemService = problemService;
-        this.viewedProblems = viewedProblems;
+        this.userSession = userSession;
     }
 
     @GetMapping("/")
@@ -40,16 +40,16 @@ public class CategoryController {
 
     @GetMapping("{categoryName}/problems/random")
     public ResponseEntity<RandomProblemDto> random(@PathVariable(name = "categoryName") String categoryName) {
-        var problem = problemService.findRandom(categoryName, viewedProblems.getViewedProblems());
+        var problem = problemService.findRandom(categoryName, userSession.getViewedProblems());
         return ResponseEntity.ok().body(problem);
     }
 
     @GetMapping("{categoryName}/problems/{id}")
     public ResponseEntity<ProblemDto> problem(@PathVariable(name = "categoryName") String categoryName, @PathVariable(name = "id", required = false) Long id) {
-        if(viewedProblems.getViewedProblems().contains(id)) {
+        if(userSession.getViewedProblems().contains(id)) {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "This problem has already been voted on");
         }
-        var problem = problemService.findByIdAndNextRandom(categoryName, id, viewedProblems.getViewedProblems());
+        var problem = problemService.findByIdAndNextRandom(categoryName, id, userSession.getViewedProblems());
         return ResponseEntity.ok().body(problem);
     }
 }

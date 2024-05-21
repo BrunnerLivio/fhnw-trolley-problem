@@ -2,7 +2,7 @@ package ch.fhnw.webec.trolleyproblem.controllers;
 
 import java.util.List;
 
-import ch.fhnw.webec.trolleyproblem.components.ViewedProblems;
+import ch.fhnw.webec.trolleyproblem.components.UserSession;
 import ch.fhnw.webec.trolleyproblem.dtos.CommentDto;
 import ch.fhnw.webec.trolleyproblem.dtos.ProblemCreateDto;
 import ch.fhnw.webec.trolleyproblem.services.CommentService;
@@ -21,13 +21,13 @@ import org.springframework.web.server.ResponseStatusException;
 @RequestMapping("/api/problems")
 public class ProblemController {
     private final ProblemService trolleyProblemService;
-    private final ViewedProblems viewedProblems;
+    private final UserSession userSession;
     private final CommentService commentService;
 
     @Autowired
-    public ProblemController(ProblemService trolleyProblemService, ViewedProblems viewedProblems, CommentService commentService) {
+    public ProblemController(ProblemService trolleyProblemService, UserSession userSession, CommentService commentService) {
         this.trolleyProblemService = trolleyProblemService;
-        this.viewedProblems = viewedProblems;
+        this.userSession = userSession;
         this.commentService = commentService;
     }
 
@@ -47,7 +47,7 @@ public class ProblemController {
 
     @GetMapping("/{id}")
     public ResponseEntity<ProblemDto> get(@PathVariable(name = "id") Long id) {
-        if (viewedProblems.getViewedProblems().contains(id)) {
+        if (userSession.getViewedProblems().contains(id)) {
             throw new ResponseStatusException(HttpStatus.GONE, "This problem has already been voted on");
         }
         var trolleyProblem = trolleyProblemService.findById(id).orElse(null);
@@ -65,12 +65,19 @@ public class ProblemController {
         return ResponseEntity.ok().body(comments);
     }
 
+    @PostMapping("/{id}/comments")
+    public ResponseEntity<List<CommentDto>> createComment(@PathVariable(name = "id") Long id, @RequestBody CommentDto commentDto) {
+        commentService.createComment(commentDto, id);
+        var comments = this.commentService.findByProblemId(id);
+        return ResponseEntity.ok().body(comments);
+    }
+
     @PostMapping("/{id}/vote/{position}")
     public ResponseEntity<ProblemDto> vote(
             @PathVariable(name = "id") Long id,
             @PathVariable(name = "position") TrackPosition position) {
         var problem = trolleyProblemService.vote(id, position);
-        this.viewedProblems.addViewedProblem(problem.getId());
+        this.userSession.addViewedProblem(problem.getId());
         return ResponseEntity.ok().body(problem);
     }
 }

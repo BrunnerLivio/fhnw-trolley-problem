@@ -1,6 +1,3 @@
-<script lang="ts">
-</script>
-
 <button
     {...$$restProps}
     on:click
@@ -8,15 +5,11 @@
     on:mouseenter
     on:mouseleave
     on:focus
-    class="relative w-56 px-8 py-2 text-xl transition-colors duration-500 ease-in-out group hover:text-background button"
+    class="relative w-56 px-8 py-2 text-xl transition-colors duration-500 ease-in-out group hover:text-background focus:text-background button"
 >
     <span class="relative z-10 top-2"> <slot></slot> </span>
 
-    <svg
-        class="absolute inset-0 z-0 w-full"
-        viewBox="0 0 399 100"
-        fill="none"
-    >
+    <svg class="absolute inset-0 z-0 w-full" viewBox="0 0 399 100" fill="none">
         <g clip-path="url(#clip0_108_2)">
             <path
                 d="M4.30859 14.366C4.76729 17.656 6.65655 20.629 6.65655 24.3653C6.65655 28.2581 6.38222 31.925 7.56964 35.6511C8.98889 40.1047 7.83053 46.5869 7.83053 51.2056C7.83053 61.4412 4.30859 71.3902 4.30859 81.2036C4.30859 85.2883 6.65655 88.7774 6.65655 92.7817C6.65655 101.246 29.313 97.5183 36.006 97.5183C60.5046 97.5183 85.1447 96.4657 109.836 96.4657C203.869 96.4657 297.671 93.308 391.656 93.308C396.572 93.308 391.721 82.1825 391.721 79.0985C391.721 72.8437 392.953 67.3276 394.004 61.2049C395.813 50.6626 393.551 39.6906 392.895 29.1019C392.772 27.1191 390.547 26.1784 390.547 24.3069C390.547 22.2855 389.802 19.8457 388.46 18.3424C386.603 16.2613 384.801 11.1943 383.503 8.57693C378.032 -2.46104 366.704 3.84041 356.241 3.84041C344.856 3.84041 333.597 7.52379 322.457 6.99809C299.721 5.92524 276.478 6.7399 253.714 4.36669C217.122 0.551946 180.383 1.32858 143.621 3.31413C122.574 4.45085 101.022 4.03516 80.0954 6.17943C63.2816 7.90227 45.2661 8.05065 28.3751 8.05065C20.5108 8.05065 12.8269 12.2609 4.30859 12.2609"
@@ -55,7 +48,8 @@
         stroke-dashoffset: 5000;
         transition: stroke-dashoffset 0.5s ease-in-out;
     }
-    .button:hover .black-stroke {
+    .button:hover .black-stroke,
+    .button:focus .black-stroke {
         stroke-dasharray: 5000;
         stroke-dashoffset: 0;
     }

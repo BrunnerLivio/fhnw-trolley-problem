@@ -1,15 +1,13 @@
 package ch.fhnw.webec.trolleyproblem.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
@@ -26,8 +24,15 @@ public class CommentEntity {
 
     private String author;
 
+    @CreationTimestamp
+    private LocalDateTime createdAt;
+
+    @JoinColumn(name = "problem_id", insertable = false, updatable = false)
     @ManyToOne
     private ProblemEntity problem;
+
+    @Column(name = "problem_id")
+    private Long problemId;
 
     public String getInitials() {
         if (author == null || author.isEmpty()) {
