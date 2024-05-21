@@ -18,12 +18,17 @@
 </script>
 
 <div
-    class="fixed bottom-0 left-0 flex items-center justify-center w-full gap-4 p-8 text-2xl border-t-2 bg-background border-t-primary"
+    class="fixed bottom-0 left-0 flex flex-col items-center w-full gap-16 p-8 text-2xl border-t-2 backdrop-blur-lg border-t-primary"
 >
-    <PieChart percentage={votes[chosenOption]} />
-    <span>
-        {chosenVotesPercentage}% of people agree with you, {otherVotesPercentage}%
-        disagree ({votes.total} votes)
-    </span>
-    <slot />
+    <div class="flex items-center justify-center gap-4">
+        <PieChart percentage={votes[chosenOption]} />
+        <span>
+            {chosenVotesPercentage}% of people agree with you, {otherVotesPercentage}%
+            disagree ({votes.total} votes)
+        </span>
+        <slot name="button" />
+    </div>
+    <div class="w-full max-w-screen-lg">
+        <slot name="comments" />
+    </div>
 </div>

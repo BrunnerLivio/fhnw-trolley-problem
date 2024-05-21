@@ -62,19 +62,22 @@
         {/if}
         {#if votes && chosenOption}
             <VoteSummary {votes} {chosenOption}>
-                {#if problem.nextProblemId !== null}
-                    <a
-                        href={`/category/${params.categoryName}/problem/${problem.nextProblemId}`}
-                        use:link
-                    >
-                        <Button>Next</Button>
-                    </a>
-                {:else}
-                    <a href="/" use:link>
-                        <Button>Go back</Button>
-                    </a>
-                {/if}
-                <Comments problemId={problem.id} />
+                <div slot="button">
+                    {#if problem.nextProblemId !== null}
+                        <a
+                            href={`/category/${params.categoryName}/problem/${problem.nextProblemId}`}
+                            use:link
+                        >
+                            <Button>Next</Button>
+                        </a>
+                    {:else}
+                        <a href="/" use:link>
+                            <Button>Go back</Button>
+                        </a>
+                    {/if}
+                </div>
+
+                <Comments slot="comments" problemId={problem.id} />
             </VoteSummary>
         {/if}
     {:catch error}
