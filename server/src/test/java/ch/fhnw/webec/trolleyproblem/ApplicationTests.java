@@ -1,4 +1,4 @@
-package ch.fhnw.webec.exercise;
+package ch.fhnw.webec.trolleyproblem;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 
+import java.text.BreakIterator;
 import java.time.LocalDateTime;
 
 @Entity
@@ -34,6 +35,28 @@ public class CommentEntity {
     @Column(name = "problem_id")
     private Long problemId;
 
+    /**
+     * Get the first character of a string and takes care of surrogate pairs
+     * @return First character
+     */
+    public static String getFirstCharacter(String text) {
+        if (text == null || text.isEmpty()) {
+            return "";
+        }
+
+        BreakIterator boundary = BreakIterator.getCharacterInstance();
+        boundary.setText(text);
+
+        int start = boundary.first();
+        int end = boundary.next();
+
+        return text.substring(start, end);
+    }
+
+    /**
+     * Get the initials of the author
+     * @return Initials
+     */
     public String getInitials() {
         if (author == null || author.isEmpty()) {
             return "";
@@ -41,9 +64,16 @@ public class CommentEntity {
 
         final String[] parts = author.split(" ");
         final StringBuilder initials = new StringBuilder();
-        for (String part : parts) {
-            initials.append(part.charAt(0));
+
+        String firstPart = parts[0];
+        String lastPart = parts[parts.length - 1];
+        if (!firstPart.isEmpty()) {
+            initials.append(getFirstCharacter(firstPart));
         }
+        if (!lastPart.isEmpty() && parts.length > 1) {
+            initials.append(getFirstCharacter(lastPart));
+        }
+
         return initials.toString();
     }
 

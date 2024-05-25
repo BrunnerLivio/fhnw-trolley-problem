@@ -45,7 +45,8 @@ dependencies {
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
-    testImplementation 'org.seleniumhq.selenium:htmlunit-driver:4.20.0'
+    testImplementation 'org.seleniumhq.selenium:htmlunit-driver:4.13.0'
+    // testImplementation 'org.seleniumhq.selenium:selenium-chrome-driver:4.8.3'
 }
 
 tasks.named('test') {
