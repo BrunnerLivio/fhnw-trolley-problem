@@ -13,17 +13,31 @@ import jakarta.transaction.Transactional;
 
 public interface ProblemRepository extends JpaRepository<ProblemEntity, Long> {
 
-    @Query("SELECT p FROM ProblemEntity p WHERE p.category.name = :categoryName AND p.id NOT IN :excludeIds ORDER BY RAND() LIMIT 1")
+    @Query("""
+      SELECT p FROM ProblemEntity p
+      WHERE lower(p.category.name) = lower(:categoryName)
+      AND p.id NOT IN :excludeIds
+      ORDER BY RAND()
+      LIMIT 1
+    """)
     Optional<ProblemEntity> findRandom(@Param(value = "categoryName") String categoryName, @Param(value = "excludeIds") List<Long> excludeIds);
 
     @Modifying(flushAutomatically = true, clearAutomatically = true)
     @Transactional
-    @Query("update ProblemEntity p set p.leftVotes = p.leftVotes + 1 WHERE p.id = :id")
+    @Query("""
+    UPDATE ProblemEntity p
+    SET p.leftVotes = p.leftVotes + 1
+    WHERE p.id = :id
+    """)
     void voteLeft(@Param(value = "id") Long id);
 
     @Modifying(flushAutomatically = true, clearAutomatically = true)
     @Transactional
-    @Query("update ProblemEntity p set p.rightVotes = p.rightVotes + 1 WHERE p.id = :id")
+    @Query("""
+    UPDATE ProblemEntity p
+    SET p.rightVotes = p.rightVotes + 1
+    WHERE p.id = :id
+    """)
     void voteRight(@Param(value = "id") Long id);
 
     @Transactional
