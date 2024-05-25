@@ -26,11 +26,12 @@
         easing: quintOut,
         axis: "y",
     }}
+    data-testid="vote-summary"
     class="fixed bottom-0 left-0 z-30 flex flex-col items-center w-full max-h-screen gap-16 p-8 overflow-y-auto text-2xl border-t-2 backdrop-blur-2xl border-t-primary"
 >
     <div class="flex flex-col items-center justify-center gap-4 md:flex-row">
         <PieChart percentage={votes[chosenOption]} />
-        <span>
+        <span data-testid="vote-summary-text">
             {chosenVotesPercentage}% of people agree with you, {otherVotesPercentage}%
             disagree ({votes.total} votes)
         </span>

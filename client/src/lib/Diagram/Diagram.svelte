@@ -38,17 +38,19 @@
     }
 </script>
 
-<div class={`w-full overflow-hidden`} role="presentation">
+<div class={`w-full overflow-hidden`} role="presentation" data-testid="diagram">
     <div class="relative mt-32">
         <img src={Track} alt="Track" />
         <Trolley {chosenOption} />
 
         <div
             class="absolute max-w-[35%] max-h-[30%] h-full w-full -top-[5%] left-[65%]"
+            data-testid="left-victims"
         >
             {#if !!leftLabel}
                 <div
                     class="relative -left-[35%] top-[0%] z-10 max-w-56 -translate-y-1/2"
+                    data-testid="left-label"
                 >
                     <Label label={leftLabel} />
                 </div>
@@ -67,16 +69,23 @@
                 {/each}
             {/if}
             {#if leftDead && leftVictims.length > 0}
-                <img src={Splat} alt="Splat" class="max-w-[60%] w-full top-0" />
+                <img
+                    src={Splat}
+                    alt="Splat"
+                    data-testid="left-splat"
+                    class="max-w-[60%] w-full top-0"
+                />
             {/if}
         </div>
 
         <div
             class="absolute max-w-[40%] max-h-[30%] h-full w-full top-[38%] left-[55%]"
+            data-testid="right-victims"
         >
             {#if !!rightLabel}
                 <div
                     class="relative right-[43%] top-[42%] z-10 max-w-56 -translate-y-1/2"
+                    data-testid="right-label"
                 >
                     <Label label={rightLabel} />
                 </div>
@@ -98,6 +107,7 @@
                 <img
                     src={Splat}
                     alt="Splat"
+                    data-testid="right-splat"
                     class="max-w-[60%] translate-x-1/4 w-full top-0"
                 />
             {/if}

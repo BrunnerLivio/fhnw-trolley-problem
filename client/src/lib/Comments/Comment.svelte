@@ -9,15 +9,16 @@
     }>();
 </script>
 
-<div class="flex gap-4">
+<div class="flex gap-4" data-testid="comment">
     <div
         class="flex items-center justify-center w-12 h-12 bg-gray-300 rounded-full"
+        data-testid="comment-initials"
     >
         {comment.initials}
     </div>
     <div>
         <div class="flex gap-4">
-            <strong style={`color: ${comment.authorColor}`}
+            <strong data-testid="comment-author" style={`color: ${comment.authorColor}`}
                 >{comment.author}</strong
             >
             {#if comment.createdByCurrentUser}
@@ -35,6 +36,6 @@
                 </div>
             {/if}
         </div>
-        <p>{comment.text}</p>
+        <p data-testid="comment-text">{comment.text}</p>
     </div>
 </div>

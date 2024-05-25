@@ -26,6 +26,7 @@
     style:left={index * 10 + centerLeft + "%"}
     style:top={index * yOffsetMultiplier + "%"}
     style:max-width={ratio * 40 + "%"}
+    data-testid="victim"
 >
     {#if showDelete}
         <button

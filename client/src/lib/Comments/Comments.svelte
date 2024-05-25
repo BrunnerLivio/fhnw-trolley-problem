@@ -49,7 +49,7 @@
 {#await commentsPromise}
     <Loading />
 {:then comments}
-    <div class="flex flex-col gap-8">
+    <div class="flex flex-col gap-8" data-testid="comments">
         <div class="flex flex-col h-full gap-4 overflow-y-auto max-h-[max(40vh,20rem)]">
             {#if comments.length === 0}
                 <p class="text-center">No comments yet</p>
