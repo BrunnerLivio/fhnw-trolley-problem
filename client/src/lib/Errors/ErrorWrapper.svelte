@@ -5,6 +5,7 @@
 
     export let title: string;
     export let description: string | undefined;
+    export let reload = false;
 </script>
 
 <div class="flex flex-col items-center justify-center w-full gap-8 py-16">
@@ -16,7 +17,11 @@
     </div>
     <EndlessYouPullAnimation class="w-40" />
 
-    <a href="/" use:link>
-        <Button>Go back</Button>
-    </a>
+    {#if reload}
+        <Button on:click={() => window.location.reload()}>Reload</Button>
+    {:else}
+        <a href="/" use:link>
+            <Button>Go back</Button>
+        </a>
+    {/if}
 </div>

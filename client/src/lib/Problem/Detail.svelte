@@ -63,7 +63,11 @@
             </div>
         {/if}
         {#if votes && chosenOption}
-            <VoteSummary {votes} {chosenOption}>
+            <VoteSummary
+
+                {votes}
+                {chosenOption}
+            >
                 <div slot="button">
                     {#if problem.nextProblemId !== null}
                         <a

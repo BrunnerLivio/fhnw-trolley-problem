@@ -50,8 +50,9 @@
         </div>
     {:catch}
         <ErrorWrapper
-            title="Failed to load categories"
+            title="Something went wrong"
             description="An unexpected error occurred. Please try again later."
+            reload
         />
     {/await}
 </div>
