@@ -26,9 +26,17 @@
     <Input
         label="Author"
         disabled={disabledAuthor}
+        minlength="3"
+        maxlength="50"
         required
         bind:value={comment.author}
     />
-    <Input label="Comment" required bind:value={comment.text} />
+    <Input
+        minlength="10"
+        maxlength="255"
+        label="Comment"
+        required
+        bind:value={comment.text}
+    />
     <Button type="submit">Submit</Button>
 </form>

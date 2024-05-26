@@ -30,6 +30,7 @@
 >
     {#if showDelete}
         <button
+            type="button"
             class="absolute z-20 p-1 text-white bg-red-500 rounded-full -top-4 -right-4"
             on:click={() => dispatch("delete", null)}
         >

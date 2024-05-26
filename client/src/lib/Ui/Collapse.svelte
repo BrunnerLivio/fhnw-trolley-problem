@@ -8,6 +8,7 @@
     <button
         class="flex items-center justify-between w-full py-4 text-xl border-b-2 cursor-pointer border-primary"
         style:border-bottom-width={open ? "0" : "2px"}
+        type="button"
         on:click={() => (open = !open)}
     >
         <span>{title}</span>

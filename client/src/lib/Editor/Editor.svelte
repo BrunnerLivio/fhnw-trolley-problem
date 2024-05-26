@@ -30,7 +30,10 @@
     };
 </script>
 
-<div class="flex flex-col flex-1 h-full">
+<form
+    on:submit|preventDefault={handleSubmit}
+    class="flex flex-col flex-1 h-full"
+>
     <div class="flex flex-col items-center justify-center w-full">
         <div class="flex flex-col w-full max-w-screen-lg gap-4 pt-4 pb-8">
             <QuestionInput bind:problem />
@@ -47,14 +50,22 @@
         >
             <span class="text-2xl font-bold">Editor</span>
             <Collapse title="Left Track">
-                <Input bind:value={problem.leftLabel} label="Label" />
+                <Input
+                    maxlength={16}
+                    bind:value={problem.leftLabel}
+                    label="Label"
+                />
                 <VictimsEditor
                     {allVictims}
                     on:add={(e) => addVictim("left", e.detail)}
                 />
             </Collapse>
             <Collapse title="Right Track">
-                <Input bind:value={problem.rightLabel} label="Label" />
+                <Input
+                    maxlength={16}
+                    bind:value={problem.rightLabel}
+                    label="Label"
+                />
                 <VictimsEditor
                     {allVictims}
                     on:add={(e) => addVictim("right", e.detail)}
@@ -71,8 +82,7 @@
         </div>
     </div>
     <div class="flex justify-center p-8">
-        <Button class="w-32 h-12" variant="primary" on:click={handleSubmit}
-            >Submit</Button
+        <Button type="submit" class="w-32 h-12" variant="primary">Submit</Button
         >
     </div>
-</div>
+</form>

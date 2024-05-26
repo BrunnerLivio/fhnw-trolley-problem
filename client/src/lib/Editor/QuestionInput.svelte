@@ -16,6 +16,9 @@
     <textarea
         bind:value={problem.question}
         on:input={(e) => adjustDynamicTextArea(e)}
+        required
+        minlength="10"
+        maxlength="255"
         {placeholder}
         class="flex-1 text-2xl bg-transparent border-b-2 resize-none min-h-20 border-b-primary"
     />

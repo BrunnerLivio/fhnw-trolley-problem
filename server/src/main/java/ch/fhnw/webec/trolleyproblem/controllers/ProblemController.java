@@ -6,6 +6,7 @@ import ch.fhnw.webec.trolleyproblem.components.UserSession;
 import ch.fhnw.webec.trolleyproblem.dtos.CommentDto;
 import ch.fhnw.webec.trolleyproblem.dtos.ProblemCreateDto;
 import ch.fhnw.webec.trolleyproblem.services.CommentService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -40,7 +41,7 @@ public class ProblemController {
     }
 
     @PostMapping("/")
-    public ResponseEntity<ProblemDto> create(@RequestBody ProblemCreateDto problemDto) {
+    public ResponseEntity<ProblemDto> create(@Valid @RequestBody ProblemCreateDto problemDto) {
         var response = trolleyProblemService.create(problemDto);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
@@ -66,7 +67,7 @@ public class ProblemController {
     }
 
     @PostMapping("/{id}/comments")
-    public ResponseEntity<List<CommentDto>> createComment(@PathVariable(name = "id") Long id, @RequestBody CommentDto commentDto) {
+    public ResponseEntity<List<CommentDto>> createComment(@PathVariable(name = "id") Long id, @Valid @RequestBody CommentDto commentDto) {
         commentService.createComment(commentDto, id);
         var comments = this.commentService.findByProblemId(id);
         return ResponseEntity.ok().body(comments);

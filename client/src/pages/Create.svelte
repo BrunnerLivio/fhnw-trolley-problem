@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { push } from "svelte-spa-router";
     import Diagram from "../lib/Diagram/Diagram.svelte";
     import Editor from "../lib/Editor/Editor.svelte";
     import Loading from "../lib/Ui/Loading.svelte";
@@ -6,12 +7,13 @@
     import { categoryService } from "../services/CategoryService";
     import { problemService } from "../services/ProblemService";
     import { victimService } from "../services/VictimService";
+    import { toastService } from "../services/toastService";
 
     const initialProblem: ProblemCreate = {
         question: "",
         leftVictims: [],
         rightVictims: [],
-        categoryId: 0,
+        categoryId: 1,
         leftLabel: "",
         rightLabel: "",
     };
@@ -28,7 +30,6 @@
         directional: "LEFT" | "RIGHT";
         index: number;
     }) => {
-        console.log({ directional, index });
         if (directional === "LEFT") {
             problem.leftVictims = problem.leftVictims.filter(
                 (_, i) => i !== index,
@@ -40,8 +41,10 @@
         }
     };
 
-    const handleSubmit = (problem: ProblemCreate) => {
-        problemService.create(problem);
+    const handleSubmit = async (problem: ProblemCreate) => {
+        await problemService.create(problem);
+        toastService.success("Problem created successfully");
+        push("/");
     };
 
     $: problem = initialProblem;
@@ -52,9 +55,6 @@
         <Loading />
     {:then [categories, allVictims]}
         {#if problem}
-            <!-- <pre>
-            {JSON.stringify(problem, null, 2)}
-        </pre> -->
             <Editor
                 on:submit={(e) => handleSubmit(e.detail)}
                 {categories}

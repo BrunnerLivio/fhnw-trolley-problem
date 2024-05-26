@@ -12,7 +12,7 @@
     <span>Victims</span>
     <div class="flex flex-wrap gap-4">
         {#each allVictims as victim}
-            <button on:click={() => dispatch("add", victim)}>
+            <button type="button" on:click={() => dispatch("add", victim)}>
                 <img
                     src={victim.imageUrl}
                     alt={victim.name}

@@ -24,6 +24,9 @@ importers:
       '@tsconfig/svelte':
         specifier: ^5.0.2
         version: 5.0.4
+      '@zerodevx/svelte-toast':
+        specifier: ^0.9.5
+        version: 0.9.5(svelte@4.2.15)
       autoprefixer:
         specifier: ^10.4.19
         version: 10.4.19(postcss@8.4.38)
@@ -344,6 +347,11 @@ packages:
 
   '@types/pug@2.0.10':
     resolution: {integrity: sha512-Sk/uYFOBAB7mb74XcpizmH0KOR2Pv3D2Hmrh1Dmy5BmK3MpdSa5kqZcg6EKBdklU0bFXX9gCfzvpnyUehrPIuA==}
+
+  '@zerodevx/svelte-toast@0.9.5':
+    resolution: {integrity: sha512-JLeB/oRdJfT+dz9A5bgd3Z7TuQnBQbeUtXrGIrNWMGqWbabpepBF2KxtWVhL2qtxpRqhae2f6NAOzH7xs4jUSw==}
+    peerDependencies:
+      svelte: ^3.57.0 || ^4.0.0
 
   acorn@8.11.3:
     resolution: {integrity: sha512-Y9rRfJG5jcKOE0CLisYbojUjIrIEE7AGMzA/Sm4BslANhbS+cDMpgBdcPT91oJ7OuJ9hYJBx59RjbhxVnrF8Xg==}
@@ -1323,6 +1331,10 @@ snapshots:
   '@types/estree@1.0.5': {}
 
   '@types/pug@2.0.10': {}
+
+  '@zerodevx/svelte-toast@0.9.5(svelte@4.2.15)':
+    dependencies:
+      svelte: 4.2.15
 
   acorn@8.11.3: {}
 
