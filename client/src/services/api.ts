@@ -8,7 +8,7 @@ export const api = ky.create({
             async (error) => {
                 const { response } = error;
                 const body = await response.json();
-                errorHandlerService.errorHandler(body);
+                errorHandlerService.errorHandler(body, response.status);
                 return error;
             },
         ],

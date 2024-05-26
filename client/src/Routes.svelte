@@ -5,10 +5,12 @@
     import Home from "./pages/Home.svelte";
     import NotFound from "./pages/NotFound.svelte";
     import Router from "svelte-spa-router";
+    import About from "./pages/About.svelte";
 
     const routes = {
         "/": Home,
         "/create": Create,
+        "/about": About,
         "/category/:categoryName": CategoryDetail,
         "/category/:categoryName/problem/:problemId": ProblemDetailPage,
         "*": NotFound,

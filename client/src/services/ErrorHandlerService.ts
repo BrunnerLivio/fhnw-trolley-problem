@@ -23,7 +23,10 @@ const isValidationErrorResponse = (
     return "errors" in error;
 };
 
-const errorHandler = async (error: any) => {
+const errorHandler = async (error: any, status: number) => {
+    if (status === 403 || status === 404) {
+        return;
+    }
     if (isValidationErrorResponse(error)) {
         return toastService.error(error.errors[0].defaultMessage);
     }

@@ -6,7 +6,7 @@
 
 <span class="flex w-full gap-4 align-bottom">
     <span
-        class="text-2xl font-bold text-right text-primary"
+        class="text-[1.5vw] font-bold text-right text-primary"
         style:text-shadow={`2px 2px 0 rgb(255, 255, 255),
                              2px -2px 0 rgb(255, 255, 255),
                              -2px 2px 0 rgb(255, 255, 255),
@@ -19,8 +19,7 @@
                 drop-shadow(-2px -2px 0 rgb(255,255,255))
                 drop-shadow(2px -2px 0 rgb(255,255,255))
                 drop-shadow(-2px 2px 0 rgb(255,255,255));`}
-        width={30}
-        class="bounce"
+        class="bounce w-[10%]"
         src={Arrow}
         alt="Arrow"
     />
