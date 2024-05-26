@@ -1,7 +1,3 @@
-pebble:
-    suffix: .peb
-    cache: false
-    exposeRequestAttributes: true
 spring:
     datasource:
         # store data in a persistent file, mode MySQL and enable server

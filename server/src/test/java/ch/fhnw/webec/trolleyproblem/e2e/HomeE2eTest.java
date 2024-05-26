@@ -3,22 +3,18 @@ package ch.fhnw.webec.trolleyproblem.e2e;
 import ch.fhnw.webec.trolleyproblem.e2e.page.IndexPage;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.context.annotation.Import;
-import org.springframework.test.context.ActiveProfiles;
 
-import java.time.Duration;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import org.junit.jupiter.api.AfterEach;
+
 @Import(WebDriverConfiguration.class)
-@ActiveProfiles("test")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class HomeE2eTest {
     @LocalServerPort
@@ -30,6 +26,11 @@ public class HomeE2eTest {
     @BeforeEach
     public void setUp() {
         indexPage = new IndexPage(webDriver, port);
+    }
+
+    @AfterEach
+    public void tearDown() {
+        webDriver.quit();
     }
 
     @Test
