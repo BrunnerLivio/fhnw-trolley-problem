@@ -31,7 +31,7 @@ build:
             - .gradle
 test:
     stage: test
-    needs: ["client_build"]
+    needs: ["build_client"]
     script: gradle check
     cache:
         key: "$CI_COMMIT_REF_NAME"
