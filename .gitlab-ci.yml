@@ -1,9 +1,25 @@
 image: gradle:8.6-jdk21-alpine
+
 variables:
     GRADLE_OPTS: "-Dorg.gradle.daemon=false"
+
 before_script:
     - export GRADLE_USER_HOME=`pwd`/.gradle
+    - cd server
+
+build_client:
+    stage: build
+    before_script:
+        - cd client
+    script:
+        - corepack enable
+        - pnpm i
+        - pnpm build:prod
+    artifacts:
+        paths:
+            - server/src/main/resources/static
 build:
+    needs: ["build_client"]
     stage: build
     script: gradle --build-cache assemble
     cache:
