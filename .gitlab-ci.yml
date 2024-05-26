@@ -11,6 +11,7 @@ build_client:
     stage: build
     before_script:
         - cd client
+    image: node:20
     script:
         - corepack enable
         - pnpm i
