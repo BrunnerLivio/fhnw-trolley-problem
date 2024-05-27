@@ -19,7 +19,7 @@
 
     <select
         value={selectedValue}
-        on:change={e => handleChange(e)}
+        on:change={(e) => handleChange(e)}
         class="flex-1 text-2xl bg-transparent border-b-2 border-b-primary"
     >
         {#each categories as category}

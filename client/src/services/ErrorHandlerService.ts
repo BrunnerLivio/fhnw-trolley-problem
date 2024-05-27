@@ -18,7 +18,7 @@ type ValidationErrorResponse = {
 };
 
 const isValidationErrorResponse = (
-    error: any
+    error: any,
 ): error is ValidationErrorResponse => {
     return "errors" in error;
 };

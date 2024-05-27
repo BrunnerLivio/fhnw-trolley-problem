@@ -7,8 +7,8 @@ export type ProblemStore = {
 };
 
 export const problemStore = writable<ProblemStore>(
-    JSON.parse(stored ?? '{ "viewed": []}')
+    JSON.parse(stored ?? '{ "viewed": []}'),
 );
 problemStore.subscribe((value) =>
-    localStorage.setItem("problems", JSON.stringify(value))
+    localStorage.setItem("problems", JSON.stringify(value)),
 );

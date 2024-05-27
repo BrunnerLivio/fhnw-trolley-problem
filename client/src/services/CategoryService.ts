@@ -10,17 +10,17 @@ const list = async () => {
 
 export const randomProblem = async (categoryName: string) => {
     const response = await api.get(
-        `api/categories/${categoryName}/problems/random`
+        `api/categories/${categoryName}/problems/random`,
     );
     return await response.json<RandomProblem>();
 };
 
 export const problemInCategory = async (categoryName: string, id: number) => {
     const response = await api.get(
-        `api/categories/${categoryName}/problems/${id}`
+        `api/categories/${categoryName}/problems/${id}`,
     );
     return await response.json<Problem>();
-}
+};
 
 export const categoryService = {
     list,

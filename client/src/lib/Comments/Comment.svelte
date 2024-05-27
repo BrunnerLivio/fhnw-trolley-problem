@@ -18,8 +18,9 @@
     </div>
     <div>
         <div class="flex gap-4">
-            <strong data-testid="comment-author" style={`color: ${comment.authorColor}`}
-                >{comment.author}</strong
+            <strong
+                data-testid="comment-author"
+                style={`color: ${comment.authorColor}`}>{comment.author}</strong
             >
             {#if comment.createdByCurrentUser}
                 <div class="flex gap-4">

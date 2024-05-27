@@ -5,4 +5,4 @@ export type Comment = {
     authorColor: string;
     initials: string;
     createdByCurrentUser: boolean;
-}
+};

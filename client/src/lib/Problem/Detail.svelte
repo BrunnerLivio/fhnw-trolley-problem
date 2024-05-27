@@ -36,7 +36,10 @@
     };
 </script>
 
-<div class="flex flex-col flex-1 w-full h-full max-w-screen-lg px-4 pb-16" data-testid="problem-detail">
+<div
+    class="flex flex-col flex-1 w-full h-full max-w-screen-lg px-4 pb-16"
+    data-testid="problem-detail"
+>
     {#await problemPromise}
         <Loading />
     {:then problem}
@@ -54,20 +57,22 @@
             <div
                 class="flex flex-col items-center justify-center gap-4 mt-8 md:flex-row"
             >
-                <Button on:click={() => handleVote(problem.id, Position.LEFT)} data-testid="pull-lever">
+                <Button
+                    on:click={() => handleVote(problem.id, Position.LEFT)}
+                    data-testid="pull-lever"
+                >
                     Pull the lever
                 </Button>
-                <Button on:click={() => handleVote(problem.id, Position.RIGHT)} data-testid="do-nothing">
+                <Button
+                    on:click={() => handleVote(problem.id, Position.RIGHT)}
+                    data-testid="do-nothing"
+                >
                     Do nothing
                 </Button>
             </div>
         {/if}
         {#if votes && chosenOption}
-            <VoteSummary
-
-                {votes}
-                {chosenOption}
-            >
+            <VoteSummary {votes} {chosenOption}>
                 <div slot="button">
                     {#if problem.nextProblemId !== null}
                         <a

@@ -24,7 +24,7 @@ const create = async (problem: ProblemCreate) => {
 
 const vote = async (problemId: number, position: Position) => {
     const response = await api.post(
-        `api/problems/${problemId}/vote/${position}`
+        `api/problems/${problemId}/vote/${position}`,
     );
     return await response.json<Problem>();
 };

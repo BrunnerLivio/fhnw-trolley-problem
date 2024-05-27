@@ -20,7 +20,10 @@
                 class="grid w-full grid-cols-1 gap-4 mt-8 md:grid-cols-2 lg:grid-cols-3 category-overview"
             >
                 {#each categories as category}
-                    <li class="flex justify-center w-full category" data-testid="category">
+                    <li
+                        class="flex justify-center w-full category"
+                        data-testid="category"
+                    >
                         <a href={`/category/${category.name}`} use:link>
                             <Button>
                                 {category.name}
