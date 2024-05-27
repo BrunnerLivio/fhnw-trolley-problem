@@ -1,6 +1,5 @@
 package ch.fhnw.webec.trolleyproblem.config;
 
-import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.context.annotation.Bean;

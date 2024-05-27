@@ -1,5 +1,6 @@
 package ch.fhnw.webec.trolleyproblem.repositories;
 
+import ch.fhnw.webec.trolleyproblem.entities.ProblemEntity;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -16,7 +17,7 @@ public class ProblemRepositoryIntegrationTest {
 
     @Test
     public void testFindRandomExcludeAll() {
-        var allIds = problemRepository.findAll().stream().map(p -> p.getId()).toList();
+        var allIds = problemRepository.findAll().stream().map(ProblemEntity::getId).toList();
         var random = problemRepository.findRandom("Funny", allIds);
         assertTrue(random.isEmpty());
     }

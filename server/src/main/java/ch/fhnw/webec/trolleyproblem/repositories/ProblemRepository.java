@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.lang.NonNull;
 
 import ch.fhnw.webec.trolleyproblem.entities.ProblemEntity;
 import jakarta.transaction.Transactional;
@@ -40,7 +41,8 @@ public interface ProblemRepository extends JpaRepository<ProblemEntity, Long> {
     """)
     void voteRight(@Param(value = "id") Long id);
 
+    @SuppressWarnings("unchecked")
     @Transactional
     @Modifying(flushAutomatically = true, clearAutomatically = true)
-    ProblemEntity save(ProblemEntity problem);
+    @NonNull ProblemEntity save(@NonNull ProblemEntity problem);
 }

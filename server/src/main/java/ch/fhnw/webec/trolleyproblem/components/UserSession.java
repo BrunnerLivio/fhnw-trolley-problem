@@ -23,6 +23,7 @@ public class UserSession implements Serializable {
     }
 
     public List<Long> getViewedProblems() {
+        @SuppressWarnings("unchecked")
         List<Long> viewedProblems = (List<Long>) httpSession.getAttribute(VIEWED_PROBLEMS);
         if (viewedProblems == null) {
             viewedProblems = new ArrayList<>();
@@ -38,6 +39,7 @@ public class UserSession implements Serializable {
     }
 
     public List<Long> getCreatedComments() {
+        @SuppressWarnings("unchecked")
         List<Long> createdComments = (List<Long>) httpSession.getAttribute(CREATED_COMMENTS);
         if (createdComments == null) {
             createdComments = new ArrayList<>();

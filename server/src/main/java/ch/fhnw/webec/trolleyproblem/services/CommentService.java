@@ -7,7 +7,6 @@ import ch.fhnw.webec.trolleyproblem.repositories.CommentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.xml.stream.events.Comment;
 import java.util.List;
 
 @Service
