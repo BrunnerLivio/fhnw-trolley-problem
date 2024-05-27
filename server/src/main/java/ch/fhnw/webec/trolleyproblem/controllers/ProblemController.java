@@ -1,22 +1,21 @@
 package ch.fhnw.webec.trolleyproblem.controllers;
 
-import java.util.List;
-
 import ch.fhnw.webec.trolleyproblem.components.UserSession;
 import ch.fhnw.webec.trolleyproblem.dtos.CommentDto;
 import ch.fhnw.webec.trolleyproblem.dtos.ProblemCreateDto;
+import ch.fhnw.webec.trolleyproblem.dtos.ProblemDto;
+import ch.fhnw.webec.trolleyproblem.entities.TrackPosition;
 import ch.fhnw.webec.trolleyproblem.services.CommentService;
+import ch.fhnw.webec.trolleyproblem.services.ProblemService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-
-import ch.fhnw.webec.trolleyproblem.dtos.ProblemDto;
-import ch.fhnw.webec.trolleyproblem.entities.TrackPosition;
-import ch.fhnw.webec.trolleyproblem.services.ProblemService;
 import org.springframework.web.server.ResponseStatusException;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/api/problems")
@@ -35,7 +34,7 @@ public class ProblemController {
     @GetMapping("/")
     public ResponseEntity<List<ProblemDto>> list() {
         var trolleyProblems = trolleyProblemService
-                .findAll();
+            .findAll();
 
         return ResponseEntity.ok().body(trolleyProblems);
     }
@@ -75,8 +74,8 @@ public class ProblemController {
 
     @PostMapping("/{id}/vote/{position}")
     public ResponseEntity<ProblemDto> vote(
-            @PathVariable(name = "id") Long id,
-            @PathVariable(name = "position") TrackPosition position) {
+        @PathVariable(name = "id") Long id,
+        @PathVariable(name = "position") TrackPosition position) {
         var problem = trolleyProblemService.vote(id, position);
         this.userSession.addViewedProblem(problem.getId());
         return ResponseEntity.ok().body(problem);

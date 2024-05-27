@@ -1,14 +1,13 @@
 package ch.fhnw.webec.trolleyproblem.mappers;
 
-import java.util.List;
-
+import ch.fhnw.webec.trolleyproblem.dtos.VictimDto;
+import ch.fhnw.webec.trolleyproblem.entities.ProblemVictimEntity;
+import ch.fhnw.webec.trolleyproblem.entities.VictimEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
-import ch.fhnw.webec.trolleyproblem.dtos.VictimDto;
-import ch.fhnw.webec.trolleyproblem.entities.ProblemVictimEntity;
-import ch.fhnw.webec.trolleyproblem.entities.VictimEntity;
+import java.util.List;
 
 @Mapper
 public interface VictimMapper {
@@ -19,6 +18,7 @@ public interface VictimMapper {
     VictimDto problemVictimEntityToVictimDto(ProblemVictimEntity victimEntity);
 
     VictimDto victimEntityToVictimDto(VictimEntity victimEntity);
+
     List<VictimDto> victimEntityToVictimDto(List<VictimEntity> victimEntity);
 
     @Mapping(source = "name", target = "victim.name")

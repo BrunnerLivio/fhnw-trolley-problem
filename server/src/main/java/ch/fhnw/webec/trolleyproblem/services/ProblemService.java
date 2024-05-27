@@ -1,25 +1,23 @@
 package ch.fhnw.webec.trolleyproblem.services;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-
 import ch.fhnw.webec.trolleyproblem.dtos.ProblemCreateDto;
+import ch.fhnw.webec.trolleyproblem.dtos.ProblemDto;
 import ch.fhnw.webec.trolleyproblem.dtos.RandomProblemDto;
 import ch.fhnw.webec.trolleyproblem.entities.ProblemEntity;
 import ch.fhnw.webec.trolleyproblem.entities.ProblemVictimEntity;
-
+import ch.fhnw.webec.trolleyproblem.entities.TrackPosition;
+import ch.fhnw.webec.trolleyproblem.mappers.ProblemMapper;
+import ch.fhnw.webec.trolleyproblem.repositories.ProblemRepository;
 import ch.fhnw.webec.trolleyproblem.repositories.ProblemVictimRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-
-import ch.fhnw.webec.trolleyproblem.dtos.ProblemDto;
-import ch.fhnw.webec.trolleyproblem.entities.TrackPosition;
-import ch.fhnw.webec.trolleyproblem.mappers.ProblemMapper;
-import ch.fhnw.webec.trolleyproblem.repositories.ProblemRepository;
 import org.springframework.web.server.ResponseStatusException;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ProblemService {
@@ -40,7 +38,7 @@ public class ProblemService {
     public RandomProblemDto findRandom(String categoryName, List<Long> excludeIds) throws ResponseStatusException {
         var randomProblemDto = new RandomProblemDto();
         var problem = repository.findRandom(categoryName, excludeIds)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Unable to find resource"));
+            .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Unable to find resource"));
 
         randomProblemDto.setProblemId(problem.getId());
         excludeIds.add(problem.getId());
@@ -53,7 +51,7 @@ public class ProblemService {
 
     public ProblemDto findByIdAndNextRandom(String categoryName, Long id, List<Long> excludeIds) {
         var problem = this.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Unable to find resource"));
+            .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Unable to find resource"));
         excludeIds.add(problem.getId());
         var nextProblem = repository.findRandom(categoryName, excludeIds);
         problem.setNextProblemId(nextProblem.map(ProblemEntity::getId));
@@ -62,7 +60,7 @@ public class ProblemService {
 
     public Optional<ProblemDto> findById(Long id) {
         return repository.findById(id)
-                .map(ProblemMapper.INSTANCE::problemEntityToProblemDto);
+            .map(ProblemMapper.INSTANCE::problemEntityToProblemDto);
     }
 
     public ProblemDto vote(Long id, TrackPosition position) {
@@ -73,8 +71,8 @@ public class ProblemService {
         }
 
         return repository.findById(id)
-                .map(ProblemMapper.INSTANCE::problemEntityToProblemDto)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Unable to find resource"));
+            .map(ProblemMapper.INSTANCE::problemEntityToProblemDto)
+            .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Unable to find resource"));
     }
 
     @Transactional

@@ -37,6 +37,7 @@ public class CommentEntity {
 
     /**
      * Get the first character of a string and takes care of surrogate pairs
+     *
      * @return First character
      */
     public static String getFirstCharacter(String text) {
@@ -55,6 +56,7 @@ public class CommentEntity {
 
     /**
      * Get the initials of the author
+     *
      * @return Initials
      */
     public String getInitials() {
@@ -79,6 +81,7 @@ public class CommentEntity {
 
     /**
      * Generate color based on the author's name
+     *
      * @return HSL Color
      */
     public String getAuthorColor() {

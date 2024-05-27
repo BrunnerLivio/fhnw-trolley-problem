@@ -12,10 +12,9 @@ import java.util.List;
 @Component
 @SessionScope
 public class UserSession implements Serializable {
-    private final HttpSession httpSession;
-
     private final static String VIEWED_PROBLEMS = "viewedProblems";
     private final static String CREATED_COMMENTS = "createdComments";
+    private final HttpSession httpSession;
 
     @Autowired
     public UserSession(HttpSession httpSession) {

@@ -1,9 +1,8 @@
 package ch.fhnw.webec.trolleyproblem.converters;
 
+import ch.fhnw.webec.trolleyproblem.dtos.Position;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.lang.NonNull;
-
-import ch.fhnw.webec.trolleyproblem.dtos.Position;
 
 public class StringToEnumConverter implements Converter<String, Position> {
     @Override

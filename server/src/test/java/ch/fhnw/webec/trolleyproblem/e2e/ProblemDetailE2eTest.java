@@ -1,7 +1,6 @@
 package ch.fhnw.webec.trolleyproblem.e2e;
 
 import ch.fhnw.webec.trolleyproblem.e2e.page.ProblemDetailPage;
-
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

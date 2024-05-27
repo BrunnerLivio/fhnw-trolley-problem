@@ -30,7 +30,7 @@ public class ProblemCreateDto {
     String rightLabel;
 
     public String getQuestion() {
-        if(question != null && !question.startsWith("Oh no!")) {
+        if (question != null && !question.startsWith("Oh no!")) {
             return "Oh no! " + question;
         }
         return question;

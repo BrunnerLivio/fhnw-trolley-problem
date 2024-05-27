@@ -1,18 +1,17 @@
 package ch.fhnw.webec.trolleyproblem.mappers;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.Named;
-import org.mapstruct.factory.Mappers;
-
 import ch.fhnw.webec.trolleyproblem.dtos.ProblemDto;
 import ch.fhnw.webec.trolleyproblem.dtos.VictimDto;
 import ch.fhnw.webec.trolleyproblem.entities.ProblemEntity;
 import ch.fhnw.webec.trolleyproblem.entities.ProblemVictimEntity;
 import ch.fhnw.webec.trolleyproblem.entities.TrackPosition;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.mapstruct.Named;
+import org.mapstruct.factory.Mappers;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Mapper
 public interface ProblemMapper {
@@ -27,7 +26,7 @@ public interface ProblemMapper {
 
     @Named("leftVictims")
     default List<ProblemVictimEntity> leftVictimsToProblemVictims(List<VictimDto> victims) {
-        if(victims == null) {
+        if (victims == null) {
             return new ArrayList<>();
         }
         return victims
@@ -55,21 +54,21 @@ public interface ProblemMapper {
             return new ArrayList<>();
         }
         return victims
-                .stream()
-                .filter(victim -> victim.getPosition() == TrackPosition.LEFT)
-                .map(VictimMapper.INSTANCE::problemVictimEntityToVictimDto)
-                .toList();
+            .stream()
+            .filter(victim -> victim.getPosition() == TrackPosition.LEFT)
+            .map(VictimMapper.INSTANCE::problemVictimEntityToVictimDto)
+            .toList();
     }
 
     @Named("rightVictims")
     default List<VictimDto> rightVictims(List<ProblemVictimEntity> victims) {
-        if(victims == null) {
+        if (victims == null) {
             return new ArrayList<>();
         }
         return victims
-                .stream()
-                .filter(victim -> victim.getPosition() == TrackPosition.RIGHT)
-                .map(VictimMapper.INSTANCE::problemVictimEntityToVictimDto)
-                .toList();
+            .stream()
+            .filter(victim -> victim.getPosition() == TrackPosition.RIGHT)
+            .map(VictimMapper.INSTANCE::problemVictimEntityToVictimDto)
+            .toList();
     }
 }

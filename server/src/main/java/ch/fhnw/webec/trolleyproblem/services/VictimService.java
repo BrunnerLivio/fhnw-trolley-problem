@@ -1,13 +1,12 @@
 package ch.fhnw.webec.trolleyproblem.services;
 
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import ch.fhnw.webec.trolleyproblem.dtos.VictimDto;
 import ch.fhnw.webec.trolleyproblem.mappers.VictimMapper;
 import ch.fhnw.webec.trolleyproblem.repositories.VictimRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class VictimService {
