@@ -13,7 +13,7 @@
         <Loading />
     {:then categories}
         <div class="flex flex-col items-center w-full gap-4">
-            <p class="text-2xl text-center">Browser trolley problems</p>
+            <p class="text-2xl text-center">Browse trolley problems</p>
 
             <ul
                 data-testid="category-overview"

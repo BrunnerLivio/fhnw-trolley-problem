@@ -3,29 +3,29 @@
     import type { Victim } from "../../models/Victim";
     import QuestionInput from "./QuestionInput.svelte";
     import VictimsEditor from "./VictimsEditor.svelte";
-    import type { ProblemCreate } from "../../models/ProblemCreate";
+    import type { ScenarioCreate } from "../../models/ScenarioCreate";
     import CategorySelect from "./CategorySelect.svelte";
     import Collapse from "../Ui/Collapse.svelte";
     import Input from "./Input.svelte";
     import Button from "../Ui/Button.svelte";
     import { createEventDispatcher } from "svelte";
 
-    export let problem: ProblemCreate;
+    export let scenario: ScenarioCreate;
 
     export let categories: Category[] = [];
     export let allVictims: Victim[] = [];
 
-    const dispatch = createEventDispatcher<{ submit: ProblemCreate }>();
+    const dispatch = createEventDispatcher<{ submit: ScenarioCreate }>();
 
     const handleSubmit = () => {
-        dispatch("submit", problem);
+        dispatch("submit", scenario);
     };
 
     const addVictim = (position: string, victim: Victim) => {
         if (position === "left") {
-            problem.leftVictims = [...(problem.leftVictims || []), victim];
+            scenario.leftVictims = [...(scenario.leftVictims || []), victim];
         } else {
-            problem.rightVictims = [...(problem.rightVictims || []), victim];
+            scenario.rightVictims = [...(scenario.rightVictims || []), victim];
         }
     };
 </script>
@@ -36,11 +36,11 @@
 >
     <div class="flex flex-col items-center justify-center w-full">
         <div class="flex flex-col w-full max-w-screen-lg gap-4 pt-4 pb-8">
-            <QuestionInput bind:problem />
+            <QuestionInput bind:scenario={scenario} />
             <CategorySelect
-                value={problem.categoryId}
+                value={scenario.categoryId}
                 {categories}
-                on:change={(e) => (problem.categoryId = e.detail)}
+                on:change={(e) => (scenario.categoryId = e.detail)}
             />
         </div>
     </div>
@@ -52,7 +52,7 @@
             <Collapse title="Left Track">
                 <Input
                     maxlength={16}
-                    bind:value={problem.leftLabel}
+                    bind:value={scenario.leftLabel}
                     label="Label"
                 />
                 <VictimsEditor
@@ -63,7 +63,7 @@
             <Collapse title="Right Track">
                 <Input
                     maxlength={16}
-                    bind:value={problem.rightLabel}
+                    bind:value={scenario.rightLabel}
                     label="Label"
                 />
                 <VictimsEditor

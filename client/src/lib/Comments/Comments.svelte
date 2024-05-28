@@ -1,13 +1,13 @@
 <script lang="ts">
     import { onMount } from "svelte";
     import type { CommentCreate } from "../../models/CommentCreate";
-    import { problemService } from "../../services/ProblemService";
+    import { scenarioService } from "../../services/ScenarioService";
     import Loading from "../Ui/Loading.svelte";
     import Comment from "./Comment.svelte";
     import CommentForm from "./CommentForm.svelte";
     import { commentService } from "../../services/CommentService";
 
-    export let problemId: number;
+    export let scenarioId: number;
     const initialValues: CommentCreate = { text: "", author: "" };
     const localStorageAuthor = localStorage.getItem("author");
     $: editingComment = {
@@ -18,7 +18,7 @@
     $: disabledAuthor = !!localStorageAuthor;
 
     const fetchComments = () => {
-        commentsPromise = problemService.comments(problemId);
+        commentsPromise = scenarioService.comments(scenarioId);
     };
 
     const createOrUpdate = async (comment: CommentCreate) => {
@@ -26,7 +26,7 @@
             await commentService.update(comment.id, comment);
         } else {
             localStorage.setItem("author", comment.author);
-            await problemService.createComment(problemId, comment);
+            await scenarioService.createComment(scenarioId, comment);
         }
         editingComment = {
             ...initialValues,

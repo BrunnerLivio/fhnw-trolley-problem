@@ -29,13 +29,13 @@ public class AbstractPage {
         return indexPage;
     }
 
-    public ProblemDetailPage goToProblemDetailPage(String category, long id) {
+    public ScenarioDetailPage gotoScenarioDetialPage(String category, long id) {
         this.webDriver.navigate().to(this.getUriBuilder().path("/")
-            .fragment("/category/%s/problem/%d".formatted(category, id)).build().toString());
-        var problemDetailPage = new ProblemDetailPage(this.webDriver, this.port);
-        wait.until(ExpectedConditions.visibilityOf(problemDetailPage.getMainElement()));
-        wait.until(ExpectedConditions.visibilityOf(problemDetailPage.getDiagram()));
-        return problemDetailPage;
+            .fragment("/category/%s/scenario/%d".formatted(category, id)).build().toString());
+        var scenarioDetailPage = new ScenarioDetailPage(this.webDriver, this.port);
+        wait.until(ExpectedConditions.visibilityOf(scenarioDetailPage.getMainElement()));
+        wait.until(ExpectedConditions.visibilityOf(scenarioDetailPage.getDiagram()));
+        return scenarioDetailPage;
     }
 
     public UriBuilder getUriBuilder() {

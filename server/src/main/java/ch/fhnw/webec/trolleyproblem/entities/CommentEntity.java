@@ -28,12 +28,12 @@ public class CommentEntity {
     @CreationTimestamp
     private LocalDateTime createdAt;
 
-    @JoinColumn(name = "problem_id", insertable = false, updatable = false)
+    @JoinColumn(name = "scenario_id", insertable = false, updatable = false)
     @ManyToOne
-    private ProblemEntity problem;
+    private ScenarioEntity scenario;
 
-    @Column(name = "problem_id")
-    private Long problemId;
+    @Column(name = "scenario_id")
+    private Long scenarioId;
 
     /**
      * Get the first character of a string and takes care of surrogate pairs

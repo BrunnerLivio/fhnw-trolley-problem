@@ -3,13 +3,13 @@
     import Diagram from "../lib/Diagram/Diagram.svelte";
     import Editor from "../lib/Editor/Editor.svelte";
     import Loading from "../lib/Ui/Loading.svelte";
-    import type { ProblemCreate } from "../models/ProblemCreate";
+    import type { ScenarioCreate } from "../models/ScenarioCreate";
     import { categoryService } from "../services/CategoryService";
-    import { problemService } from "../services/ProblemService";
+    import { scenarioService } from "../services/ScenarioService";
     import { victimService } from "../services/VictimService";
     import { toastService } from "../services/toastService";
 
-    const initialProblem: ProblemCreate = {
+    const initialScenario: ScenarioCreate = {
         question: "",
         leftVictims: [],
         rightVictims: [],
@@ -31,41 +31,41 @@
         index: number;
     }) => {
         if (directional === "LEFT") {
-            problem.leftVictims = problem.leftVictims.filter(
+            scenario.leftVictims = scenario.leftVictims.filter(
                 (_, i) => i !== index,
             );
         } else {
-            problem.rightVictims = problem.rightVictims.filter(
+            scenario.rightVictims = scenario.rightVictims.filter(
                 (_, i) => i !== index,
             );
         }
     };
 
-    const handleSubmit = async (problem: ProblemCreate) => {
-        await problemService.create(problem);
-        toastService.success("Problem created successfully");
+    const handleSubmit = async (scenario: ScenarioCreate) => {
+        await scenarioService.create(scenario);
+        toastService.success("Scenario created successfully");
         push("/");
     };
 
-    $: problem = initialProblem;
+    $: scenario = initialScenario;
 </script>
 
 <div class="flex flex-col flex-1 w-full gap-8">
     {#await loadingPromise}
         <Loading />
     {:then [categories, allVictims]}
-        {#if problem}
+        {#if scenario}
             <Editor
                 on:submit={(e) => handleSubmit(e.detail)}
                 {categories}
                 {allVictims}
-                bind:problem
+                bind:scenario={scenario}
             >
                 <Diagram
-                    leftVictims={problem.leftVictims}
-                    rightVictims={problem.rightVictims}
-                    leftLabel={problem.leftLabel}
-                    rightLabel={problem.rightLabel}
+                    leftVictims={scenario.leftVictims}
+                    rightVictims={scenario.rightVictims}
+                    leftLabel={scenario.leftLabel}
+                    rightLabel={scenario.rightLabel}
                     deletable
                     on:delete={(e) => handleDeleteVictim(e.detail)}
                 />

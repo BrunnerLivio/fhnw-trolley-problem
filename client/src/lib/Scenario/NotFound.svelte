@@ -4,5 +4,5 @@
 
 <ErrorWrapper
     title="You've reached the end of the track!"
-    description="There are no more problems in this category."
+    description="There are no more scenarios in this category."
 />

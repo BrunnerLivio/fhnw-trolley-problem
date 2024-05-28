@@ -1,6 +1,6 @@
 package ch.fhnw.webec.trolleyproblem.repositories;
 
-import ch.fhnw.webec.trolleyproblem.entities.ProblemEntity;
+import ch.fhnw.webec.trolleyproblem.entities.ScenarioEntity;
 import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -11,21 +11,21 @@ import org.springframework.lang.NonNull;
 import java.util.List;
 import java.util.Optional;
 
-public interface ProblemRepository extends JpaRepository<ProblemEntity, Long> {
+public interface ScenarioRepository extends JpaRepository<ScenarioEntity, Long> {
 
     @Query("""
-          SELECT p FROM ProblemEntity p
+          SELECT p FROM ScenarioEntity p
           WHERE lower(p.category.name) = lower(:categoryName)
           AND p.id NOT IN :excludeIds
           ORDER BY RAND()
           LIMIT 1
         """)
-    Optional<ProblemEntity> findRandom(@Param(value = "categoryName") String categoryName, @Param(value = "excludeIds") List<Long> excludeIds);
+    Optional<ScenarioEntity> findRandom(@Param(value = "categoryName") String categoryName, @Param(value = "excludeIds") List<Long> excludeIds);
 
     @Modifying(flushAutomatically = true, clearAutomatically = true)
     @Transactional
     @Query("""
-        UPDATE ProblemEntity p
+        UPDATE ScenarioEntity p
         SET p.leftVotes = p.leftVotes + 1
         WHERE p.id = :id
         """)
@@ -34,7 +34,7 @@ public interface ProblemRepository extends JpaRepository<ProblemEntity, Long> {
     @Modifying(flushAutomatically = true, clearAutomatically = true)
     @Transactional
     @Query("""
-        UPDATE ProblemEntity p
+        UPDATE ScenarioEntity p
         SET p.rightVotes = p.rightVotes + 1
         WHERE p.id = :id
         """)
@@ -44,5 +44,5 @@ public interface ProblemRepository extends JpaRepository<ProblemEntity, Long> {
     @Transactional
     @Modifying(flushAutomatically = true, clearAutomatically = true)
     @NonNull
-    ProblemEntity save(@NonNull ProblemEntity problem);
+    ScenarioEntity save(@NonNull ScenarioEntity problem);
 }

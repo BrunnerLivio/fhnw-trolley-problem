@@ -1,6 +1,6 @@
 package ch.fhnw.webec.trolleyproblem.e2e;
 
-import ch.fhnw.webec.trolleyproblem.e2e.page.ProblemDetailPage;
+import ch.fhnw.webec.trolleyproblem.e2e.page.ScenarioDetailPage;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -18,17 +18,17 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @Import(WebDriverConfiguration.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class ProblemDetailE2eTest {
+public class ScenarioDetailE2eTest {
     @LocalServerPort
     private int port;
     @Autowired
     private WebDriver webDriver;
-    private ProblemDetailPage problemDetailPage;
+    private ScenarioDetailPage scenarioDetailPage;
     private WebDriverWait wait;
 
     @BeforeEach
     public void setUp() {
-        problemDetailPage = new ProblemDetailPage(webDriver, port);
+        scenarioDetailPage = new ScenarioDetailPage(webDriver, port);
         wait = new WebDriverWait(webDriver, Duration.ofSeconds(10));
     }
 
@@ -39,26 +39,26 @@ public class ProblemDetailE2eTest {
 
     @Test
     public void testDisplaysVictims() {
-        problemDetailPage.goToProblemDetailPage("Funny", 1);
-        assertEquals(1, problemDetailPage.getLeftVictims().size());
-        assertEquals("https://d3rjk7x0pvg6e3.cloudfront.net/one-guy.svg", problemDetailPage.getLeftVictimImageUrl(0));
+        scenarioDetailPage.gotoScenarioDetialPage("Funny", 1);
+        assertEquals(1, scenarioDetailPage.getLeftVictims().size());
+        assertEquals("https://d3rjk7x0pvg6e3.cloudfront.net/one-guy.svg", scenarioDetailPage.getLeftVictimImageUrl(0));
 
-        assertEquals(5, problemDetailPage.getRightVictims().size());
+        assertEquals(5, scenarioDetailPage.getRightVictims().size());
 
-        assertEquals("https://d3rjk7x0pvg6e3.cloudfront.net/one-guy.svg", problemDetailPage.getRightVictimImageUrl(0));
-        assertEquals("https://d3rjk7x0pvg6e3.cloudfront.net/one-guy.svg", problemDetailPage.getRightVictimImageUrl(1));
-        assertEquals("https://d3rjk7x0pvg6e3.cloudfront.net/one-guy.svg", problemDetailPage.getRightVictimImageUrl(2));
-        assertEquals("https://d3rjk7x0pvg6e3.cloudfront.net/one-guy.svg", problemDetailPage.getRightVictimImageUrl(3));
-        assertEquals("https://d3rjk7x0pvg6e3.cloudfront.net/one-guy.svg", problemDetailPage.getRightVictimImageUrl(4));
+        assertEquals("https://d3rjk7x0pvg6e3.cloudfront.net/one-guy.svg", scenarioDetailPage.getRightVictimImageUrl(0));
+        assertEquals("https://d3rjk7x0pvg6e3.cloudfront.net/one-guy.svg", scenarioDetailPage.getRightVictimImageUrl(1));
+        assertEquals("https://d3rjk7x0pvg6e3.cloudfront.net/one-guy.svg", scenarioDetailPage.getRightVictimImageUrl(2));
+        assertEquals("https://d3rjk7x0pvg6e3.cloudfront.net/one-guy.svg", scenarioDetailPage.getRightVictimImageUrl(3));
+        assertEquals("https://d3rjk7x0pvg6e3.cloudfront.net/one-guy.svg", scenarioDetailPage.getRightVictimImageUrl(4));
     }
 
     @Test
     public void testPullLever() {
-        problemDetailPage.goToProblemDetailPage("Funny", 1);
-        problemDetailPage.getPullLeverButton().click();
-        wait.until(wd -> problemDetailPage.getVoteSummary().isDisplayed());
-        assertEquals("100.00% of people agree with you, 0.00% disagree (1 votes)", problemDetailPage.getVoteSummaryText().getText());
-        var comments = problemDetailPage.getComments();
+        scenarioDetailPage.gotoScenarioDetialPage("Funny", 1);
+        scenarioDetailPage.getPullLeverButton().click();
+        wait.until(wd -> scenarioDetailPage.getVoteSummary().isDisplayed());
+        assertEquals("100.00% of people agree with you, 0.00% disagree (1 votes)", scenarioDetailPage.getVoteSummaryText().getText());
+        var comments = scenarioDetailPage.getComments();
         assertEquals(2, comments.size());
         comments.get(0).findElement(By.cssSelector("[data-testid=comment-author]")).getText().contains("Jane Doe");
         comments.get(0).findElement(By.cssSelector("[data-testid=comment-initials]")).getText().contains("JD");

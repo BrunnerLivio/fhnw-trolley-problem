@@ -11,7 +11,7 @@ import java.util.Optional;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class RandomProblemDto {
-    Long problemId;
-    Optional<Long> nextProblemId;
+public class RandomScenarioDto {
+    Long scenarioId;
+    Optional<Long> nextScenarioId;
 }

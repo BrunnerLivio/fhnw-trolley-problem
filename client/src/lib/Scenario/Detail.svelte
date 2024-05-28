@@ -1,6 +1,6 @@
 <script lang="ts">
     import type { ComponentProps } from "svelte";
-    import { problemService } from "../../services/ProblemService";
+    import { scenarioService } from "../../services/ScenarioService";
     import { Position } from "../../models/Position";
 
     import VoteSummary from "./VoteSummary.svelte";
@@ -14,23 +14,23 @@
     import AlreadyVoted from "./AlreadyVoted.svelte";
     import SomethingWentWrong from "../Errors/SomethingWentWrong.svelte";
 
-    export let params: { categoryName?: string; problemId?: number } = {};
+    export let params: { categoryName?: string; scenarioId?: number } = {};
 
-    const problemPromise = categoryService.problemInCategory(
+    const scenarioPromise = categoryService.scenarioInCategory(
         params.categoryName!,
-        params.problemId!,
+        params.scenarioId!,
     );
 
     let votes: ComponentProps<VoteSummary>["votes"] | null = null;
     let chosenOption: Position | null = null;
 
-    const handleVote = async (problemId: number, position: Position) => {
-        const problem = await problemService.vote(problemId, position);
-        const totalVotes = problem.leftVotes + problem.rightVotes;
+    const handleVote = async (scenarioId: number, position: Position) => {
+        const scenario = await scenarioService.vote(scenarioId, position);
+        const totalVotes = scenario.leftVotes + scenario.rightVotes;
         chosenOption = position;
         votes = {
-            [Position.LEFT]: (problem.leftVotes / totalVotes) * 100,
-            [Position.RIGHT]: (problem.rightVotes / totalVotes) * 100,
+            [Position.LEFT]: (scenario.leftVotes / totalVotes) * 100,
+            [Position.RIGHT]: (scenario.rightVotes / totalVotes) * 100,
             total: totalVotes,
         };
     };
@@ -38,18 +38,18 @@
 
 <div
     class="flex flex-col flex-1 w-full h-full max-w-screen-lg px-4 pb-16"
-    data-testid="problem-detail"
+    data-testid="scenario-detail"
 >
-    {#await problemPromise}
+    {#await scenarioPromise}
         <Loading />
-    {:then problem}
-        <p class="text-2xl">{problem.question}</p>
+    {:then scenario}
+        <p class="text-2xl">{scenario.question}</p>
 
         <Diagram
-            leftVictims={problem.leftVictims}
-            rightVictims={problem.rightVictims}
-            leftLabel={problem.leftLabel}
-            rightLabel={problem.rightLabel}
+            leftVictims={scenario.leftVictims}
+            rightVictims={scenario.rightVictims}
+            leftLabel={scenario.leftLabel}
+            rightLabel={scenario.rightLabel}
             {chosenOption}
         />
 
@@ -58,13 +58,13 @@
                 class="flex flex-col items-center justify-center gap-4 mt-8 md:flex-row"
             >
                 <Button
-                    on:click={() => handleVote(problem.id, Position.LEFT)}
+                    on:click={() => handleVote(scenario.id, Position.LEFT)}
                     data-testid="pull-lever"
                 >
                     Pull the lever
                 </Button>
                 <Button
-                    on:click={() => handleVote(problem.id, Position.RIGHT)}
+                    on:click={() => handleVote(scenario.id, Position.RIGHT)}
                     data-testid="do-nothing"
                 >
                     Do nothing
@@ -74,9 +74,9 @@
         {#if votes && chosenOption}
             <VoteSummary {votes} {chosenOption}>
                 <div slot="button">
-                    {#if problem.nextProblemId !== null}
+                    {#if scenario.nextScenarioId !== null}
                         <a
-                            href={`/category/${params.categoryName}/problem/${problem.nextProblemId}`}
+                            href={`/category/${params.categoryName}/scenario/${scenario.nextScenarioId}`}
                             use:link
                         >
                             <Button>Next</Button>
@@ -88,7 +88,7 @@
                     {/if}
                 </div>
 
-                <Comments slot="comments" problemId={problem.id} />
+                <Comments slot="comments" scenarioId={scenario.id} />
             </VoteSummary>
         {/if}
     {:catch error}

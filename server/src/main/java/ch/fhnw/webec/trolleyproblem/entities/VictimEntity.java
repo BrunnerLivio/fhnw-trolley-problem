@@ -24,5 +24,5 @@ public class VictimEntity {
     private String imageUrl;
 
     @OneToMany(mappedBy = "victim")
-    private List<ProblemVictimEntity> problems;
+    private List<ScenarioVictimEntity> problems;
 }

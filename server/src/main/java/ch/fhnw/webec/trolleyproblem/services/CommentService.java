@@ -34,8 +34,8 @@ public class CommentService {
             .toList();
     }
 
-    public List<CommentDto> findByProblemId(Long problemId) {
-        var comments = commentRepository.findAllByProblemIdOrderByCreatedAtDesc(problemId);
+    public List<CommentDto> findByScenarioId(Long scenarioId) {
+        var comments = commentRepository.findAllByScenarioIdOrderByCreatedAtDesc(scenarioId);
         var createdComments = userSession.getCreatedComments();
 
         return CommentMapper.INSTANCE.commentEntityToCommentDtoList(comments)
@@ -48,9 +48,9 @@ public class CommentService {
             .toList();
     }
 
-    public CommentDto createComment(CommentDto commentDto, Long problemId) {
+    public CommentDto createComment(CommentDto commentDto, Long scenarioId) {
         var commentToSave = CommentMapper.INSTANCE.commentDtoToCommentEntity(commentDto);
-        commentToSave.setProblemId(problemId);
+        commentToSave.setScenarioId(scenarioId);
         var newComment = commentRepository.save(commentToSave);
         this.userSession.addCreatedComment(newComment.getId());
         return CommentMapper.INSTANCE.commentEntityToCommentDto(newComment);

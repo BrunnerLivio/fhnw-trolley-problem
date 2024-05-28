@@ -11,7 +11,7 @@ import java.util.ArrayList;
 @Getter
 @Setter
 @AllArgsConstructor
-public class ProblemCreateDto {
+public class ScenarioCreateDto {
     @NotBlank(message = "Question is required")
     @Size(max = 255, message = "Question must not be longer than 255 characters")
     @Size(min = 10, message = "Question must be at least 10 characters long")

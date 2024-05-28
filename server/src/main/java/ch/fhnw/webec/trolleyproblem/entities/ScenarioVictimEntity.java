@@ -10,16 +10,16 @@ import lombok.*;
 @NoArgsConstructor
 @RequiredArgsConstructor
 @AllArgsConstructor
-@Table(name = "problem_victim")
-public class ProblemVictimEntity {
+@Table(name = "scenario_victim")
+public class ScenarioVictimEntity {
     @Id
     @Setter(AccessLevel.NONE)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @JoinColumn(name = "problem_id", insertable = false, updatable = false)
+    @JoinColumn(name = "scenario_id", insertable = false, updatable = false)
     @ManyToOne
-    private ProblemEntity problem;
+    private ScenarioEntity scenario;
 
     @JoinColumn(name = "victim_id", insertable = false, updatable = false)
     @ManyToOne
@@ -29,9 +29,9 @@ public class ProblemVictimEntity {
     @NonNull
     private TrackPosition position;
 
-    @Column(name = "problem_id")
+    @Column(name = "scenario_id")
     @NonNull
-    private Long problemId;
+    private Long scenarioId;
 
     @Column(name = "victim_id")
     @NonNull

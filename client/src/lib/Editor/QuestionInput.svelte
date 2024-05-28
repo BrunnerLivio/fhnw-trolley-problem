@@ -1,8 +1,8 @@
 <script lang="ts">
-    import type { Problem } from "../../models/Problem";
+    import type { Scenario } from "../../models/Scenario";
 
-    export let problem: Partial<Problem>;
-    $: placeholder = `A trolley is heading towards ${problem?.rightVictims?.length} people. You can pull the lever to divert it to the other track, killing ${problem?.leftVictims?.length} person instead. What do you do?`;
+    export let scenario: Partial<Scenario>;
+    $: placeholder = `A trolley is heading towards ${scenario?.rightVictims?.length} people. You can pull the lever to divert it to the other track, killing ${scenario?.leftVictims?.length} person instead. What do you do?`;
 
     const adjustDynamicTextArea = (e: Event) => {
         const element = e.target as HTMLTextAreaElement;
@@ -14,7 +14,7 @@
 <div class="flex w-full gap-2">
     <span class="text-2xl">Oh no!</span>
     <textarea
-        bind:value={problem.question}
+        bind:value={scenario.question}
         on:input={(e) => adjustDynamicTextArea(e)}
         required
         minlength="10"

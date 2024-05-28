@@ -9,23 +9,19 @@ import org.openqa.selenium.support.FindBy;
 import java.util.List;
 
 @Getter
-public class ProblemDetailPage extends AbstractPage {
-    @FindBy(css = "[data-testid=problem-detail]")
+public class ScenarioDetailPage extends AbstractPage {
+    @FindBy(css = "[data-testid=scenario-detail]")
     private WebElement mainElement;
 
     @FindBy(css = "[data-testid=diagram]")
     private WebElement diagram;
 
-    public ProblemDetailPage(WebDriver driver, int port) {
+    public ScenarioDetailPage(WebDriver driver, int port) {
         super(driver, port);
     }
 
     public WebElement getPullLeverButton() {
         return mainElement.findElement(By.cssSelector("[data-testid=pull-lever]"));
-    }
-
-    public WebElement getDoNothingButton() {
-        return mainElement.findElement(By.cssSelector("[data-testid=do-nothing]"));
     }
 
     public List<WebElement> getLeftVictims() {

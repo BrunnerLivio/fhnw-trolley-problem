@@ -3,21 +3,21 @@
     import Loading from "../lib/Ui/Loading.svelte";
     import { categoryService } from "../services/CategoryService";
     import Button from "../lib/Ui/Button.svelte";
-    import NotFound from "../lib/Problem/NotFound.svelte";
+    import NotFound from "../lib/Scenario/NotFound.svelte";
 
     export let params: { categoryName?: string } = {};
 
-    const randomProblemPromise = categoryService
-        .randomProblem(params.categoryName!)
-        .then((problem) => {
+    const randomScenarioPromise = categoryService
+        .randomScenario(params.categoryName!)
+        .then((scenario) => {
             replace(
-                `/category/${params.categoryName}/problem/${problem.problemId}`,
+                `/category/${params.categoryName}/scenario/${scenario.scenarioId}`,
             );
         });
 </script>
 
 <div class="flex flex-col flex-1 w-full h-full max-w-screen-lg">
-    {#await randomProblemPromise}
+    {#await randomScenarioPromise}
         <Loading />
     {:catch error}
         {#if error.response.status === 404}

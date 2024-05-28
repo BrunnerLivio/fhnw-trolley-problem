@@ -1,6 +1,6 @@
 import type { Victim } from "./Victim";
 
-export type ProblemCreate = {
+export type ScenarioCreate = {
     question: string;
     categoryId: number;
     leftVictims: Victim[];

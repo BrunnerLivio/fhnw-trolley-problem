@@ -22,5 +22,5 @@ public class CategoryEntity {
     private String name;
 
     @OneToMany(mappedBy = "category")
-    private List<ProblemEntity> problems;
+    private List<ScenarioEntity> problems;
 }

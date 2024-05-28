@@ -2,10 +2,10 @@ package ch.fhnw.webec.trolleyproblem.controllers;
 
 import ch.fhnw.webec.trolleyproblem.components.UserSession;
 import ch.fhnw.webec.trolleyproblem.dtos.CategoryDto;
-import ch.fhnw.webec.trolleyproblem.dtos.ProblemDto;
-import ch.fhnw.webec.trolleyproblem.dtos.RandomProblemDto;
+import ch.fhnw.webec.trolleyproblem.dtos.ScenarioDto;
+import ch.fhnw.webec.trolleyproblem.dtos.RandomScenarioDto;
 import ch.fhnw.webec.trolleyproblem.services.CategoryService;
-import ch.fhnw.webec.trolleyproblem.services.ProblemService;
+import ch.fhnw.webec.trolleyproblem.services.ScenarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,13 +21,13 @@ import java.util.List;
 @RequestMapping("/api/categories")
 public class CategoryController {
     private final CategoryService categoryService;
-    private final ProblemService problemService;
+    private final ScenarioService scenarioService;
     private final UserSession userSession;
 
     @Autowired
-    public CategoryController(CategoryService categoryService, ProblemService problemService, UserSession userSession) {
+    public CategoryController(CategoryService categoryService, ScenarioService scenarioService, UserSession userSession) {
         this.categoryService = categoryService;
-        this.problemService = problemService;
+        this.scenarioService = scenarioService;
         this.userSession = userSession;
     }
 
@@ -37,18 +37,18 @@ public class CategoryController {
         return ResponseEntity.ok().body(categories);
     }
 
-    @GetMapping("{categoryName}/problems/random")
-    public ResponseEntity<RandomProblemDto> random(@PathVariable(name = "categoryName") String categoryName) {
-        var problem = problemService.findRandom(categoryName, userSession.getViewedProblems());
-        return ResponseEntity.ok().body(problem);
+    @GetMapping("{categoryName}/scenarios/random")
+    public ResponseEntity<RandomScenarioDto> random(@PathVariable(name = "categoryName") String categoryName) {
+        var scenario = scenarioService.findRandom(categoryName, userSession.getViewedScenarios());
+        return ResponseEntity.ok().body(scenario);
     }
 
-    @GetMapping("{categoryName}/problems/{id}")
-    public ResponseEntity<ProblemDto> problem(@PathVariable(name = "categoryName") String categoryName, @PathVariable(name = "id", required = false) Long id) {
-        if (userSession.getViewedProblems().contains(id)) {
-            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "This problem has already been voted on");
+    @GetMapping("{categoryName}/scenarios/{id}")
+    public ResponseEntity<ScenarioDto> scenario(@PathVariable(name = "categoryName") String categoryName, @PathVariable(name = "id", required = false) Long id) {
+        if (userSession.getViewedScenarios().contains(id)) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "This scenario has already been voted on");
         }
-        var problem = problemService.findByIdAndNextRandom(categoryName, id, userSession.getViewedProblems());
-        return ResponseEntity.ok().body(problem);
+        var scenario = scenarioService.findByIdAndNextRandom(categoryName, id, userSession.getViewedScenarios());
+        return ResponseEntity.ok().body(scenario);
     }
 }

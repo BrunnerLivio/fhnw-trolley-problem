@@ -12,8 +12,8 @@ import java.util.List;
 @Component
 @SessionScope
 public class UserSession implements Serializable {
-    private final static String VIEWED_PROBLEMS = "viewedProblems";
-    private final static String CREATED_COMMENTS = "createdComments";
+    private final static String VIEWED_SCENARIOS = "VIEWED_SCENARIOS";
+    private final static String CREATED_COMMENTS = "CREATED_COMMENTS";
     private final HttpSession httpSession;
 
     @Autowired
@@ -21,20 +21,20 @@ public class UserSession implements Serializable {
         this.httpSession = httpSession;
     }
 
-    public List<Long> getViewedProblems() {
+    public List<Long> getViewedScenarios() {
         @SuppressWarnings("unchecked")
-        List<Long> viewedProblems = (List<Long>) httpSession.getAttribute(VIEWED_PROBLEMS);
-        if (viewedProblems == null) {
-            viewedProblems = new ArrayList<>();
-            httpSession.setAttribute(VIEWED_PROBLEMS, viewedProblems);
+        List<Long> viewedScenarios = (List<Long>) httpSession.getAttribute(VIEWED_SCENARIOS);
+        if (viewedScenarios == null) {
+            viewedScenarios = new ArrayList<>();
+            httpSession.setAttribute(VIEWED_SCENARIOS, viewedScenarios);
         }
-        return viewedProblems;
+        return viewedScenarios;
     }
 
-    public void addViewedProblem(Long problemId) {
-        var viewedProblems = getViewedProblems();
-        viewedProblems.add(problemId);
-        httpSession.setAttribute(VIEWED_PROBLEMS, viewedProblems);
+    public void addViewedScenarios(Long scenarioId) {
+        var viewedScenarios = getViewedScenarios();
+        viewedScenarios.add(scenarioId);
+        httpSession.setAttribute(VIEWED_SCENARIOS, viewedScenarios);
     }
 
     public List<Long> getCreatedComments() {

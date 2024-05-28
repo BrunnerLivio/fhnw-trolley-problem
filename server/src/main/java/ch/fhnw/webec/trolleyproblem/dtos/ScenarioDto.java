@@ -13,7 +13,7 @@ import java.util.Optional;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class ProblemDto {
+public class ScenarioDto {
     private Long id;
     private String question;
     private Date createdAt;
@@ -25,5 +25,5 @@ public class ProblemDto {
 
     private List<VictimDto> leftVictims;
     private List<VictimDto> rightVictims;
-    private Optional<Long> nextProblemId;
+    private Optional<Long> nextScenarioId;
 }

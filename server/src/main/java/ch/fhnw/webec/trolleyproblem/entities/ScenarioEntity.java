@@ -14,8 +14,8 @@ import java.util.List;
 @RequiredArgsConstructor
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "problem")
-public class ProblemEntity {
+@Table(name = "scenario")
+public class ScenarioEntity {
     @Id
     @Setter(AccessLevel.NONE)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -36,11 +36,11 @@ public class ProblemEntity {
     @NonNull
     private String rightLabel;
 
-    @OneToMany(mappedBy = "problem")
+    @OneToMany(mappedBy = "scenario")
     @Cascade(CascadeType.ALL)
-    private List<ProblemVictimEntity> victims;
+    private List<ScenarioVictimEntity> victims;
 
-    @OneToMany(mappedBy = "problem")
+    @OneToMany(mappedBy = "scenario")
     @Cascade(CascadeType.ALL)
     private List<CommentEntity> comments;
 
