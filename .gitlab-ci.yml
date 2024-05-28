@@ -29,10 +29,21 @@ build:
         paths:
             - build
             - .gradle
-test:
+integration-test:
     stage: test
     needs: ["build_client"]
-    script: gradle check
+    script: gradle test --tests "*IntegrationTest*"
+    cache:
+        key: "$CI_COMMIT_REF_NAME"
+        policy: pull
+        paths:
+            - build
+            - .gradle
+
+unit-test:
+    stage: test
+    needs: ["build_client"]
+    script: gradle test --tests "*UnitTest*"
     cache:
         key: "$CI_COMMIT_REF_NAME"
         policy: pull
