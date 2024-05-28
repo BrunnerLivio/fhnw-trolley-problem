@@ -39,16 +39,16 @@ public class CategoryController {
 
     @GetMapping("{categoryName}/scenarios/random")
     public ResponseEntity<RandomScenarioDto> random(@PathVariable(name = "categoryName") String categoryName) {
-        var scenario = scenarioService.findRandom(categoryName, userSession.getViewedScenarios());
+        var scenario = scenarioService.findRandom(categoryName, userSession.getVotedScenarios());
         return ResponseEntity.ok().body(scenario);
     }
 
     @GetMapping("{categoryName}/scenarios/{id}")
     public ResponseEntity<ScenarioDto> scenario(@PathVariable(name = "categoryName") String categoryName, @PathVariable(name = "id", required = false) Long id) {
-        if (userSession.getViewedScenarios().contains(id)) {
+        if (userSession.getVotedScenarios().contains(id)) {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "This scenario has already been voted on");
         }
-        var scenario = scenarioService.findByIdAndNextRandom(categoryName, id, userSession.getViewedScenarios());
+        var scenario = scenarioService.findByIdAndNextRandom(categoryName, id, userSession.getVotedScenarios());
         return ResponseEntity.ok().body(scenario);
     }
 }

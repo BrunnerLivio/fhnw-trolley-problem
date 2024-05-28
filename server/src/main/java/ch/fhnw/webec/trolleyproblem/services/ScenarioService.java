@@ -5,7 +5,7 @@ import ch.fhnw.webec.trolleyproblem.dtos.ScenarioDto;
 import ch.fhnw.webec.trolleyproblem.dtos.RandomScenarioDto;
 import ch.fhnw.webec.trolleyproblem.entities.ScenarioEntity;
 import ch.fhnw.webec.trolleyproblem.entities.ScenarioVictimEntity;
-import ch.fhnw.webec.trolleyproblem.entities.TrackPosition;
+import ch.fhnw.webec.trolleyproblem.entities.Directional;
 import ch.fhnw.webec.trolleyproblem.mappers.ScenarioMapper;
 import ch.fhnw.webec.trolleyproblem.repositories.ScenarioRepository;
 import ch.fhnw.webec.trolleyproblem.repositories.ScenarioVictimRepository;
@@ -18,6 +18,7 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class ScenarioService {
@@ -35,7 +36,7 @@ public class ScenarioService {
         return ScenarioMapper.INSTANCE.scenarioEntitiesToScenarioDtos(repository.findAll());
     }
 
-    public RandomScenarioDto findRandom(String categoryName, List<Long> excludeIds) throws ResponseStatusException {
+    public RandomScenarioDto findRandom(String categoryName, Set<Long> excludeIds) throws ResponseStatusException {
         var randomScenarioDto = new RandomScenarioDto();
         var scenario = repository.findRandom(categoryName, excludeIds)
             .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Unable to find resource"));
@@ -49,7 +50,7 @@ public class ScenarioService {
         return randomScenarioDto;
     }
 
-    public ScenarioDto findByIdAndNextRandom(String categoryName, Long id, List<Long> excludeIds) {
+    public ScenarioDto findByIdAndNextRandom(String categoryName, Long id, Set<Long> excludeIds) {
         var scenario = this.findById(id)
             .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Unable to find resource"));
         excludeIds.add(scenario.getId());
@@ -63,8 +64,8 @@ public class ScenarioService {
             .map(ScenarioMapper.INSTANCE::scenarioEntityToScenarioDto);
     }
 
-    public ScenarioDto vote(Long id, TrackPosition position) {
-        if (position == TrackPosition.LEFT) {
+    public ScenarioDto vote(Long id, Directional position) {
+        if (position == Directional.LEFT) {
             repository.voteLeft(id);
         } else {
             repository.voteRight(id);
@@ -84,12 +85,12 @@ public class ScenarioService {
         var victims = new ArrayList<ScenarioVictimEntity>();
         dto.getLeftVictims()
             .forEach(victimDto -> {
-                var victim = new ScenarioVictimEntity(TrackPosition.LEFT, savedEntity.getId(), victimDto.getId());
+                var victim = new ScenarioVictimEntity(Directional.LEFT, savedEntity.getId(), victimDto.getId());
                 victims.add(victim);
             });
         dto.getRightVictims()
             .forEach(victimDto -> {
-                var victim = new ScenarioVictimEntity(TrackPosition.RIGHT, savedEntity.getId(), victimDto.getId());
+                var victim = new ScenarioVictimEntity(Directional.RIGHT, savedEntity.getId(), victimDto.getId());
                 victims.add(victim);
             });
         scenarioVictimRepository.saveAll(victims);

@@ -7,12 +7,14 @@ import org.springframework.web.context.annotation.SessionScope;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Component
 @SessionScope
 public class UserSession implements Serializable {
-    private final static String VIEWED_SCENARIOS = "VIEWED_SCENARIOS";
+    private final static String VOTED_SCENARIOS = "VOTED_SCENARIOS";
     private final static String CREATED_COMMENTS = "CREATED_COMMENTS";
     private final HttpSession httpSession;
 
@@ -21,27 +23,28 @@ public class UserSession implements Serializable {
         this.httpSession = httpSession;
     }
 
-    public List<Long> getViewedScenarios() {
+    public Set<Long> getVotedScenarios() {
         @SuppressWarnings("unchecked")
-        List<Long> viewedScenarios = (List<Long>) httpSession.getAttribute(VIEWED_SCENARIOS);
-        if (viewedScenarios == null) {
-            viewedScenarios = new ArrayList<>();
-            httpSession.setAttribute(VIEWED_SCENARIOS, viewedScenarios);
+        Set<Long> votedScenarios = (Set<Long>) httpSession.getAttribute(VOTED_SCENARIOS);
+        if (votedScenarios == null) {
+            votedScenarios = new HashSet<>();
+            httpSession.setAttribute(VOTED_SCENARIOS, votedScenarios);
         }
-        return viewedScenarios;
+        // Return a new HashSet to prevent modification of the original set
+        return new HashSet<>(votedScenarios);
     }
 
-    public void addViewedScenarios(Long scenarioId) {
-        var viewedScenarios = getViewedScenarios();
-        viewedScenarios.add(scenarioId);
-        httpSession.setAttribute(VIEWED_SCENARIOS, viewedScenarios);
+    public void addVotedScenarios(Long scenarioId) {
+        var votedScenarios = getVotedScenarios();
+        votedScenarios.add(scenarioId);
+        httpSession.setAttribute(VOTED_SCENARIOS, votedScenarios);
     }
 
-    public List<Long> getCreatedComments() {
+    public Set<Long> getCreatedComments() {
         @SuppressWarnings("unchecked")
-        List<Long> createdComments = (List<Long>) httpSession.getAttribute(CREATED_COMMENTS);
+        Set<Long> createdComments = (Set<Long>) httpSession.getAttribute(CREATED_COMMENTS);
         if (createdComments == null) {
-            createdComments = new ArrayList<>();
+            createdComments = new HashSet<>();
             httpSession.setAttribute(CREATED_COMMENTS, createdComments);
         }
         return createdComments;

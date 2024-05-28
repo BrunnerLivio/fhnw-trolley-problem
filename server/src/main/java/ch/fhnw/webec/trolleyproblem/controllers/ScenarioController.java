@@ -4,7 +4,7 @@ import ch.fhnw.webec.trolleyproblem.components.UserSession;
 import ch.fhnw.webec.trolleyproblem.dtos.CommentDto;
 import ch.fhnw.webec.trolleyproblem.dtos.ScenarioCreateDto;
 import ch.fhnw.webec.trolleyproblem.dtos.ScenarioDto;
-import ch.fhnw.webec.trolleyproblem.entities.TrackPosition;
+import ch.fhnw.webec.trolleyproblem.entities.Directional;
 import ch.fhnw.webec.trolleyproblem.services.CommentService;
 import ch.fhnw.webec.trolleyproblem.services.ScenarioService;
 import jakarta.validation.Valid;
@@ -45,7 +45,7 @@ public class ScenarioController {
 
     @GetMapping("/{id}")
     public ResponseEntity<ScenarioDto> get(@PathVariable(name = "id") Long id) {
-        if (userSession.getViewedScenarios().contains(id)) {
+        if (userSession.getVotedScenarios().contains(id)) {
             throw new ResponseStatusException(HttpStatus.GONE, "This scenario has already been voted on");
         }
         var scenario = scenarioService.findById(id).orElse(null);
@@ -73,9 +73,9 @@ public class ScenarioController {
     @PostMapping("/{id}/vote/{position}")
     public ResponseEntity<ScenarioDto> vote(
         @PathVariable(name = "id") Long id,
-        @PathVariable(name = "position") TrackPosition position) {
+        @PathVariable(name = "position") Directional position) {
         var scenario = scenarioService.vote(id, position);
-        this.userSession.addViewedScenarios(scenario.getId());
+        this.userSession.addVotedScenarios(scenario.getId());
         return ResponseEntity.ok().body(scenario);
     }
 }

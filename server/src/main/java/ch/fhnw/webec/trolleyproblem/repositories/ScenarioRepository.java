@@ -10,6 +10,7 @@ import org.springframework.lang.NonNull;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 public interface ScenarioRepository extends JpaRepository<ScenarioEntity, Long> {
 
@@ -20,7 +21,7 @@ public interface ScenarioRepository extends JpaRepository<ScenarioEntity, Long> 
           ORDER BY RAND()
           LIMIT 1
         """)
-    Optional<ScenarioEntity> findRandom(@Param(value = "categoryName") String categoryName, @Param(value = "excludeIds") List<Long> excludeIds);
+    Optional<ScenarioEntity> findRandom(@Param(value = "categoryName") String categoryName, @Param(value = "excludeIds") Set<Long> excludeIds);
 
     @Modifying(flushAutomatically = true, clearAutomatically = true)
     @Transactional

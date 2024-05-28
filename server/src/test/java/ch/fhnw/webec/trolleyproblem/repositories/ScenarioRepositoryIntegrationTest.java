@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -17,14 +19,14 @@ public class ScenarioRepositoryIntegrationTest {
 
     @Test
     public void testFindRandomExcludeAll() {
-        var allIds = scenarioRepository.findAll().stream().map(ScenarioEntity::getId).toList();
+        var allIds = scenarioRepository.findAll().stream().map(ScenarioEntity::getId).collect(Collectors.toSet());
         var random = scenarioRepository.findRandom("Funny", allIds);
         assertTrue(random.isEmpty());
     }
 
     @Test
     public void testFindRandomExcludeNone() {
-        var random = scenarioRepository.findRandom("Funny", List.of());
+        var random = scenarioRepository.findRandom("Funny", Set.of());
         assertFalse(random.isEmpty());
     }
 

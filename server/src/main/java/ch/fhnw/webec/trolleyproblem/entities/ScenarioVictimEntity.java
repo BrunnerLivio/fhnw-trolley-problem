@@ -27,7 +27,7 @@ public class ScenarioVictimEntity {
 
     @Enumerated(EnumType.ORDINAL)
     @NonNull
-    private TrackPosition position;
+    private Directional position;
 
     @Column(name = "scenario_id")
     @NonNull

@@ -4,7 +4,7 @@ import ch.fhnw.webec.trolleyproblem.dtos.ScenarioDto;
 import ch.fhnw.webec.trolleyproblem.dtos.VictimDto;
 import ch.fhnw.webec.trolleyproblem.entities.ScenarioEntity;
 import ch.fhnw.webec.trolleyproblem.entities.ScenarioVictimEntity;
-import ch.fhnw.webec.trolleyproblem.entities.TrackPosition;
+import ch.fhnw.webec.trolleyproblem.entities.Directional;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;
@@ -32,7 +32,7 @@ public interface ScenarioMapper {
         return victims
             .stream()
             .map(VictimMapper.INSTANCE::victimDtoToScenarioVictimEntity)
-            .peek(victim -> victim.setPosition(TrackPosition.LEFT))
+            .peek(victim -> victim.setPosition(Directional.LEFT))
             .toList();
     }
 
@@ -44,7 +44,7 @@ public interface ScenarioMapper {
         return victims
             .stream()
             .map(VictimMapper.INSTANCE::victimDtoToScenarioVictimEntity)
-            .peek(victim -> victim.setPosition(TrackPosition.RIGHT))
+            .peek(victim -> victim.setPosition(Directional.RIGHT))
             .toList();
     }
 
@@ -55,7 +55,7 @@ public interface ScenarioMapper {
         }
         return victims
             .stream()
-            .filter(victim -> victim.getPosition() == TrackPosition.LEFT)
+            .filter(victim -> victim.getPosition() == Directional.LEFT)
             .map(VictimMapper.INSTANCE::scenarioVictimEntityToVictimDto)
             .toList();
     }
@@ -67,7 +67,7 @@ public interface ScenarioMapper {
         }
         return victims
             .stream()
-            .filter(victim -> victim.getPosition() == TrackPosition.RIGHT)
+            .filter(victim -> victim.getPosition() == Directional.RIGHT)
             .map(VictimMapper.INSTANCE::scenarioVictimEntityToVictimDto)
             .toList();
     }
