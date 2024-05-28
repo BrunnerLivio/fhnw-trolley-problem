@@ -1,20 +1,22 @@
 <script lang="ts">
-    import { Position } from "../../models/Position";
+    import { Directional } from "../../models/Directional";
     import PieChart from "../Ui/PieChart.svelte";
     import { slide } from "svelte/transition";
     import { quintOut } from "svelte/easing";
 
     type Votes = {
-        [Position.LEFT]: number;
-        [Position.RIGHT]: number;
+        [Directional.LEFT]: number;
+        [Directional.RIGHT]: number;
         total: number;
     };
 
     export let votes: Votes;
-    export let chosenOption: Position;
+    export let chosenOption: Directional;
 
     $: otherPosition =
-        chosenOption === Position.LEFT ? Position.RIGHT : Position.LEFT;
+        chosenOption === Directional.LEFT
+            ? Directional.RIGHT
+            : Directional.LEFT;
     $: chosenVotesPercentage = votes[chosenOption].toFixed(2);
     $: otherVotesPercentage = votes[otherPosition].toFixed(2);
 </script>

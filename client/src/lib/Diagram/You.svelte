@@ -2,12 +2,12 @@
     import You from "../../assets/you.svg";
     import YouPull from "../../assets/you-pull.svg";
 
-    import { Position } from "../../models/Position";
+    import { Directional } from "../../models/Directional";
 
-    export let chosenOption: Position | null = null;
+    export let chosenOption: Directional | null = null;
 </script>
 
-{#if chosenOption === null || chosenOption === Position.RIGHT}
+{#if chosenOption === null || chosenOption === Directional.RIGHT}
     <img
         src={You}
         alt="You"
@@ -15,7 +15,7 @@
     />
 {/if}
 
-{#if chosenOption === Position.LEFT}
+{#if chosenOption === Directional.LEFT}
     <img
         src={YouPull}
         alt="You"

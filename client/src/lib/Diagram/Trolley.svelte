@@ -1,8 +1,8 @@
 <script lang="ts">
-    import type { Position } from "../../models/Position";
+    import type { Directional } from "../../models/Directional";
     import Trolley from "../../assets/trolley.svg";
 
-    export let chosenOption: Position | null = null;
+    export let chosenOption: Directional | null = null;
 
     $: trolleyAnimation =
         chosenOption === null

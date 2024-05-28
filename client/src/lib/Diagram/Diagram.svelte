@@ -1,7 +1,7 @@
 <script lang="ts">
     import Track from "../../assets/track.svg";
     import Splat from "../../assets/splat.svg";
-    import { Position } from "../../models/Position";
+    import { Directional } from "../../models/Directional";
     import type { Victim } from "../../models/Victim";
 
     import You from "./You.svelte";
@@ -14,7 +14,7 @@
     export let rightVictims: Victim[] = [];
     export let leftLabel: string | null;
     export let rightLabel: string | null;
-    export let chosenOption: Position | null = null;
+    export let chosenOption: Directional | null = null;
     export let deletable: boolean = false;
 
     const dispatch = createEventDispatcher<{
@@ -26,8 +26,8 @@
 
     let displaySplat: boolean;
 
-    $: leftDead = displaySplat && chosenOption === Position.LEFT;
-    $: rightDead = displaySplat && chosenOption === Position.RIGHT;
+    $: leftDead = displaySplat && chosenOption === Directional.LEFT;
+    $: rightDead = displaySplat && chosenOption === Directional.RIGHT;
 
     $: {
         if (chosenOption !== null) {

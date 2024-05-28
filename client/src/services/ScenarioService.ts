@@ -1,6 +1,6 @@
 import type { Comment } from "../models/Comment";
 import type { CommentCreate } from "../models/CommentCreate";
-import type { Position } from "../models/Position";
+import type { Directional } from "../models/Directional";
 import type { Scenario } from "../models/Scenario";
 import type { ScenarioCreate } from "../models/ScenarioCreate";
 import { api } from "./api";
@@ -22,7 +22,7 @@ const create = async (scenario: ScenarioCreate) => {
     return await response.json<Scenario>();
 };
 
-const vote = async (scenarioId: number, position: Position) => {
+const vote = async (scenarioId: number, position: Directional) => {
     const response = await api.post(
         `api/scenarios/${scenarioId}/vote/${position}`,
     );

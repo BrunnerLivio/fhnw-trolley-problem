@@ -1,8 +1,7 @@
 <script lang="ts">
     import type { ComponentProps } from "svelte";
     import { scenarioService } from "../../services/ScenarioService";
-    import { Position } from "../../models/Position";
-
+    import { Directional } from "../../models/Directional";
     import VoteSummary from "./VoteSummary.svelte";
     import Button from "../Ui/Button.svelte";
     import Comments from "../Comments/Comments.svelte";
@@ -22,15 +21,15 @@
     );
 
     let votes: ComponentProps<VoteSummary>["votes"] | null = null;
-    let chosenOption: Position | null = null;
+    let chosenOption: Directional | null = null;
 
-    const handleVote = async (scenarioId: number, position: Position) => {
-        const scenario = await scenarioService.vote(scenarioId, position);
+    const handleVote = async (scenarioId: number, direction: Directional) => {
+        const scenario = await scenarioService.vote(scenarioId, direction);
         const totalVotes = scenario.leftVotes + scenario.rightVotes;
-        chosenOption = position;
+        chosenOption = direction;
         votes = {
-            [Position.LEFT]: (scenario.leftVotes / totalVotes) * 100,
-            [Position.RIGHT]: (scenario.rightVotes / totalVotes) * 100,
+            [Directional.LEFT]: (scenario.leftVotes / totalVotes) * 100,
+            [Directional.RIGHT]: (scenario.rightVotes / totalVotes) * 100,
             total: totalVotes,
         };
     };
@@ -58,13 +57,13 @@
                 class="flex flex-col items-center justify-center gap-4 mt-8 md:flex-row"
             >
                 <Button
-                    on:click={() => handleVote(scenario.id, Position.LEFT)}
+                    on:click={() => handleVote(scenario.id, Directional.LEFT)}
                     data-testid="pull-lever"
                 >
                     Pull the lever
                 </Button>
                 <Button
-                    on:click={() => handleVote(scenario.id, Position.RIGHT)}
+                    on:click={() => handleVote(scenario.id, Directional.RIGHT)}
                     data-testid="do-nothing"
                 >
                     Do nothing
